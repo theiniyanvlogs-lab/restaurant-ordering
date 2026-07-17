@@ -1,3 +1,6 @@
+import os
+import json
+
 import gspread
 from datetime import datetime
 from zoneinfo import ZoneInfo
@@ -14,10 +17,18 @@ SCOPES = [
 
 SHEET_NAME = "RestaurantDB"
 
-creds = Credentials.from_service_account_file(
-    "credentials.json",
-    scopes=SCOPES
-)
+google_credentials = os.environ.get("GOOGLE_CREDENTIALS")
+
+if google_credentials:
+    creds = Credentials.from_service_account_info(
+        json.loads(google_credentials),
+        scopes=SCOPES
+    )
+else:
+    creds = Credentials.from_service_account_file(
+        "credentials.json",
+        scopes=SCOPES
+    )
 
 client = gspread.authorize(creds)
 
