@@ -1,0 +1,51 @@
+Question,Expected,Predicted
+What is FoodExpress?,FoodExpress is an AI-powered online restaurant ordering platform.,FoodExpress is an AI-powered online restaurant ordering platform.
+What type of platform is FoodExpress?,AI-powered online restaurant ordering platform.,AI-powered online restaurant ordering platform.
+What is the mission of FoodExpress?,"To deliver fresh, delicious, and affordable food quickly while providing excellent customer service.","To deliver fresh, delicious, and affordable food quickly while providing excellent customer service."
+What are your business hours?,10:00 AM – 11:00 PM,10:00 AM – 11:00 PM
+What is the support email?,support@foodexpress.com,support@foodexpress.com
+What is the website?,www.foodexpress.com,www.foodexpress.com
+Do you serve pizza?,Yes,Yes
+Do you serve burgers?,Yes,Yes
+Do you serve pasta?,Yes,Yes
+Do you serve desserts?,Yes,Yes
+Do you serve drinks?,Yes,Yes
+What is the price of Margherita Pizza?,$12.99,$12.99
+What is the price of Veg Supreme Pizza?,$15.99,$15.99
+What is the price of Paneer Pizza?,$16.99,$16.99
+What is the price of Farmhouse Pizza?,$17.99,$17.99
+What is the price of Veg Burger?,$7.99,$7.99
+What is the price of Cheese Burger?,$8.99,$8.99
+What is the price of Double Cheese Burger?,$10.99,$10.99
+What is the price of White Sauce Pasta?,$11.99,$11.99
+What is the price of Red Sauce Pasta?,$10.99,$10.99
+What is the price of Mixed Pasta?,$12.99,$12.99
+What is the price of Veg Sandwich?,$6.99,$6.99
+What is the price of Grilled Sandwich?,$7.99,$7.99
+What is the price of Chocolate Brownie?,$5.99,$5.99
+What is the price of Ice Cream Sundae?,$4.99,$4.99
+What is the price of Coca-Cola?,$2.99,$2.99
+What is the price of Pepsi?,$2.99,$2.99
+What is the price of Orange Juice?,$3.99,$3.99
+What is the price of Mineral Water?,$1.99,$1.99
+What is the average delivery time?,30–40 Minutes,30–40 Minutes
+What discount is available on orders above $50?,20% OFF,20% OFF
+What burger offer is available?,Buy 2 Burgers Get 1 Burger FREE,Buy 2 Burgers Get 1 Burger FREE
+When do I get a free soft drink?,On orders above $30,On orders above $30
+What is the weekend special offer?,Flat 15% OFF,Flat 15% OFF
+When is free delivery available?,On orders above $40,On orders above $40
+Can I cancel my order?,"Yes, within 5 minutes.","Yes, within 5 minutes."
+When are refunds available?,Only for damaged or incorrect orders.,Only for damaged or incorrect orders.
+Can food be returned after delivery?,No,No
+Can delivery time vary?,"Yes, during peak hours.","Yes, during peak hours."
+Should customers verify their address before placing an order?,Yes,Yes
+Do you provide home delivery?,Yes,Yes
+What payment methods are accepted?,"Credit Card, Debit Card, PayPal, Cash on Delivery.","Credit Card, Debit Card, PayPal, Cash on Delivery."
+Can I track my order?,Yes,Yes
+What are your business hours?,10:00 AM – 11:00 PM,10:00 AM – 11:00 PM
+How long does delivery usually take?,30–40 minutes.,30–40 minutes.
+Does FoodExpress offer affordable food?,Yes,Yes
+Does FoodExpress provide excellent customer service?,Yes,Yes
+Can I order desserts online?,Yes,Yes
+Can I order drinks online?,Yes,Yes
+What is FoodExpress known for?,"Fresh, delicious, and affordable food with fast online ordering.","Fresh, delicious, and affordable food with fast online ordering."
