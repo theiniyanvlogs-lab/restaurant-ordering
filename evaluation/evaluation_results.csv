@@ -1,0 +1,6 @@
+Question,Expected,Predicted
+What is FoodExpress?,FoodExpress is an AI-powered online restaurant ordering platform.,FoodExpress is an AI-powered online restaurant ordering platform.
+What are your business hours?,10:00 AM – 11:00 PM,10:00 AM – 11:00 PM
+Do you provide home delivery?,Yes,Yes
+Can I cancel an order?,Yes within 5 minutes.,Yes within 5 minutes.
+What is the price of Margherita Pizza?,$12.99,$12.99
