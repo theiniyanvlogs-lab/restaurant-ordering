@@ -5,15 +5,8 @@ from sklearn.metrics import precision_score
 from sklearn.metrics import recall_score
 from sklearn.metrics import f1_score
 
-# ============================
-# Load CSV
-# ============================
-
+# Load evaluation data
 df = pd.read_csv("evaluation/evaluation_results.csv")
-
-# ============================
-# Compare Answers
-# ============================
 
 y_true = []
 y_pred = []
@@ -36,18 +29,10 @@ for _, row in df.iterrows():
 total = len(df)
 incorrect = total - correct
 
-# ============================
-# Metrics
-# ============================
-
 accuracy = accuracy_score(y_true, y_pred) * 100
 precision = precision_score(y_true, y_pred, zero_division=0) * 100
 recall = recall_score(y_true, y_pred, zero_division=0) * 100
 f1 = f1_score(y_true, y_pred, zero_division=0) * 100
-
-# ============================
-# Save JSON
-# ============================
 
 metrics = {
 
