@@ -1,0 +1,10 @@
+{
+    "accuracy": 95,
+    "precision": 94,
+    "recall": 95,
+    "f1_score": 94.5,
+    "total_questions": 20,
+    "correct": 19,
+    "incorrect": 1,
+    "response_time": "1.2 sec"
+}
