@@ -1,0 +1,16 @@
+Question,Expected,Predicted
+What is FoodExpress?,FoodExpress is an AI-powered online restaurant ordering platform.,FoodExpress is an AI-powered online restaurant ordering platform.
+What are your business hours?,10:00 AM – 11:00 PM,10:00 AM – 11:00 PM
+Do you provide home delivery?,Yes,Yes
+What is the average delivery time?,30–40 minutes.,30–40 minutes.
+What payment methods are accepted?,Credit Card Debit Card PayPal Cash on Delivery,Credit Card Debit Card PayPal Cash on Delivery
+Can I cancel an order?,Yes within 5 minutes.,Yes within 5 minutes.
+What is your support email?,support@foodexpress.com,support@foodexpress.com
+What is the price of Margherita Pizza?,$12.99,$12.99
+What burgers are available?,Veg Burger Cheese Burger Double Cheese Burger,Veg Burger Cheese Burger Double Cheese Burger
+Can food be returned after delivery?,No,No
+What is today's offer?,20% OFF on orders above $50,20% OFF on orders above $50
+Do you have combo offers?,Buy 2 Burgers Get 1 Burger FREE,Buy 2 Burgers Get 1 Burger FREE
+Do you provide free delivery?,Yes on orders above $40,Yes on orders above $40
+What desserts are available?,Chocolate Brownie Ice Cream Sundae,Chocolate Brownie Ice Cream Sundae
+What drinks are available?,Coca-Cola Pepsi Orange Juice Mineral Water,Coca-Cola Pepsi Orange Juice Mineral Water
