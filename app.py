@@ -1,4 +1,5 @@
 import os
+import json
 
 from flask import (
     Flask,
@@ -827,10 +828,21 @@ def internal_server_error(error):
 # ==========================================
 # Evaluation Page
 # ==========================================
-
 @app.route("/evaluation")
 def evaluation():
-    return render_template("evaluation.html")
+
+    metrics_file = os.path.join(
+        "evaluation",
+        "metrics.json"
+    )
+
+    with open(metrics_file, "r") as file:
+        metrics = json.load(file)
+
+    return render_template(
+        "evaluation.html",
+        metrics=metrics
+    )
 
 # ==========================================================
 # RUN APPLICATION
