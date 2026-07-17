@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Restaurant Menu</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+</head>
+
+<body>
+
+<!-- ===================================================== -->
+<!-- HEADER -->
+<!-- ===================================================== -->
+
+<header>
+
+    <div class="logo">
+
+        🍽 Restaurant Ordering System
+
+    </div>
+
+    <nav>
+
+        <a href="{{ url_for('home') }}">
+
+            🏠 Home
+
+        </a>
+
+        <a href="{{ url_for('menu_page') }}"
+           class="active">
+
+            🍔 Menu
+
+        </a>
+
+        <a href="{{ url_for('cart_page') }}">
+
+            🛒 Cart
+
+            {% if cart_count > 0 %}
+
+            <span class="cart-badge">
+
+                {{ cart_count }}
+
+            </span>
+
+            {% endif %}
+
+        </a>
+
+        <a href="{{ url_for('checkout') }}">
+
+            💳 Checkout
+
+        </a>
+
+    </nav>
+
+</header>
+
+<!-- ===================================================== -->
+<!-- HERO -->
+<!-- ===================================================== -->
+
+<section class="menu-hero">
+
+    <div class="menu-hero-content">
+
+        <span class="hero-tag">
+
+            ⭐ Premium Restaurant
+
+        </span>
+
+        <h1>
+
+            Discover Our
+
+            <span>
+
+                Delicious Menu
+
+            </span>
+
+        </h1>
+
+        <p>
+
+            Freshly prepared pizzas, burgers, pasta,
+            desserts and refreshing beverages made
+            with premium ingredients by experienced chefs.
+
+        </p>
+
+        <div class="hero-buttons">
+
+            <a href="#menu-list"
+               class="hero-btn">
+
+                🍽 Explore Menu
+
+            </a>
+
+            <a href="{{ url_for('cart_page') }}"
+               class="order-btn">
+
+                🛒 View Cart
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ===================================================== -->
+<!-- SEARCH -->
+<!-- ===================================================== -->
+
+<section class="search-section">
+
+    <div class="search-box">
+
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="Search your favourite food...">
+
+        <button
+            id="searchBtn">
+
+            🔍
+
+        </button>
+
+    </div>
+
+</section>
+
+<!-- ===================================================== -->
+<!-- CATEGORY FILTER -->
+<!-- ===================================================== -->
+
+<section class="category-section">
+
+    <div class="category-filter">
+
+        <button
+            class="category-btn active"
+            data-category="all">
+
+            🍽 All
+
+        </button>
+
+        <button
+            class="category-btn"
+            data-category="pizza">
+
+            🍕 Pizza
+
+        </button>
+
+        <button
+            class="category-btn"
+            data-category="burger">
+
+            🍔 Burger
+
+        </button>
+
+        <button
+            class="category-btn"
+            data-category="pasta">
+
+            🍝 Pasta
+
+        </button>
+
+        <button
+            class="category-btn"
+            data-category="dessert">
+
+            🍰 Dessert
+
+        </button>
+
+        <button
+            class="category-btn"
+            data-category="drinks">
+
+            🥤 Drinks
+
+        </button>
+
+    </div>
+
+</section>
+
+<!-- ===================================================== -->
+<!-- MENU GRID START -->
+<!-- ===================================================== -->
+
+<section class="menu-grid"
+         id="menu-list">
+
+{% for item in menu %}
+
+<div class="food-card menu-item"
+
+     data-id="{{ item.id }}"
+
+     data-name="{{ item.name }}"
+
+     data-category="{{ item.category|lower }}"
+
+     data-price="{{ item.price }}"
+
+     data-rating="{{ item.rating }}"
+
+     data-description="{{ item.description }}"
+
+     data-image="{{ url_for('static', filename='images/' + item.image) }}">
+
+    <!-- ========================================= -->
+    <!-- POPULAR BADGE -->
+    <!-- ========================================= -->
+
+    {% if item.popular %}
+
+    <div class="popular-badge">
+
+        🔥 Popular
+
+    </div>
+
+    {% endif %}
+
+
+    <!-- ========================================= -->
+    <!-- FAVORITE -->
+    <!-- ========================================= -->
+
+    <div class="favorite">
+
+        🤍
+
+    </div>
+
+
+    <!-- ========================================= -->
+    <!-- FOOD IMAGE -->
+    <!-- ========================================= -->
+
+    <div class="food-image">
+
+        <img src="{{ url_for('static', filename='images/' + item.image) }}"
+             alt="{{ item.name }}">
+
+    </div>
+
+
+    <!-- ========================================= -->
+    <!-- FOOD CONTENT -->
+    <!-- ========================================= -->
+
+    <div class="food-content">
+
+        <span class="food-category">
+
+            {{ item.category }}
+
+        </span>
+
+        <h2>
+
+            {{ item.name }}
+
+        </h2>
+
+        <p class="food-description">
+
+            {{ item.description }}
+
+        </p>
+
+
+        <!-- =============================== -->
+        <!-- RATING + PREP TIME -->
+        <!-- =============================== -->
+
+        <div class="food-meta">
+
+            <div class="food-rating">
+
+                ⭐ {{ item.rating }}
+
+            </div>
+
+            <div class="prep-time">
+
+                ⏱ {{ item.prep_time }}
+
+            </div>
+
+        </div>
+
+
+        <!-- =============================== -->
+        <!-- PRICE -->
+        <!-- =============================== -->
+
+        <div class="food-price">
+
+            ₹ {{ "%.2f"|format(item.price) }}
+
+        </div>
+
+
+        <!-- =============================== -->
+        <!-- BUTTONS -->
+        <!-- =============================== -->
+
+        <div class="food-buttons">
+
+            <a href="{{ url_for('add_to_cart', item_id=item.id) }}"
+               class="add-cart-btn">
+
+                🛒 Add to Cart
+
+            </a>
+
+            <a href="{{ url_for('checkout') }}"
+               class="order-now-btn">
+
+                ⚡ Order Now
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endfor %}
+
+</section>
+
+
+<!-- ========================================= -->
+<!-- NO RESULT -->
+<!-- ========================================= -->
+
+<div id="noResult"
+     class="no-result"
+     style="display:none;">
+
+    <h2>
+
+        😔 No food items found
+
+    </h2>
+
+    <p>
+
+        Try searching with another keyword.
+
+    </p>
+
+</div>
+
+<!-- ===================================================== -->
+<!-- FOOD DETAILS POPUP -->
+<!-- ===================================================== -->
+
+<div id="foodModal" class="modal">
+
+    <div class="modal-content">
+
+        <span id="closeModal"
+              class="close-btn">
+
+            &times;
+
+        </span>
+
+        <button id="favoriteBtn"
+                class="favorite-btn">
+
+            🤍
+
+        </button>
+
+        <div class="modal-image-box">
+
+            <img id="modalImage"
+                 class="modal-image"
+                 src=""
+                 alt="Food Image">
+
+        </div>
+
+        <div class="modal-body">
+
+            <span id="popularBadge"
+                  class="popular-badge">
+
+                🔥 Popular
+
+            </span>
+
+            <span id="modalCategory"
+                  class="food-category">
+
+                Category
+
+            </span>
+
+            <h2 id="modalName">
+
+                Food Name
+
+            </h2>
+
+            <div class="modal-meta">
+
+                <div id="modalRating"
+                     class="food-rating">
+
+                    ⭐ 5.0
+
+                </div>
+
+                <div class="prep-time">
+
+                    ⏱ Ready in 20 Minutes
+
+                </div>
+
+            </div>
+
+            <p id="modalDescription"
+               class="food-description">
+
+                Food description goes here...
+
+            </p>
+
+            <div class="food-price"
+                 id="modalPrice">
+
+                ₹0.00
+
+            </div>
+
+            <div class="food-buttons">
+
+                <a id="modalCartLink"
+                   href="#"
+                   class="add-cart-btn">
+
+                    🛒 Add to Cart
+
+                </a>
+
+                <a href="{{ url_for('checkout') }}"
+                   class="order-now-btn">
+
+                    ⚡ Order Now
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ===================================================== -->
+<!-- NEWSLETTER -->
+<!-- ===================================================== -->
+
+<section class="newsletter">
+
+    <div class="newsletter-content">
+
+        <h2>
+
+            📧 Subscribe to Our Newsletter
+
+        </h2>
+
+        <p>
+
+            Get exclusive discounts, special offers,
+            new menu updates and exciting food deals.
+
+        </p>
+
+        <form class="newsletter-form">
+
+            <input type="email"
+                   placeholder="Enter your email address"
+                   required>
+
+            <button type="submit">
+
+                Subscribe
+
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+
+<!-- ===================================================== -->
+<!-- FOOTER -->
+<!-- ===================================================== -->
+
+<footer>
+
+    <div class="footer-container">
+
+        <div class="footer-grid">
+
+            <!-- ABOUT -->
+
+            <div class="footer-column">
+
+                <h3>
+
+                    🍽 Restaurant Ordering System
+
+                </h3>
+
+                <p>
+
+                    Fresh food prepared with premium
+                    ingredients and delivered quickly
+                    to your doorstep.
+
+                </p>
+
+                <div class="social-icons">
+
+                    <a href="#">📘</a>
+
+                    <a href="#">📷</a>
+
+                    <a href="#">▶️</a>
+
+                    <a href="#">💼</a>
+
+                </div>
+
+            </div>
+
+
+            <!-- QUICK LINKS -->
+
+            <div class="footer-column">
+
+                <h3>
+
+                    Quick Links
+
+                </h3>
+
+                <ul>
+
+                    <li>
+
+                        <a href="{{ url_for('home') }}">
+
+                            Home
+
+                        </a>
+
+                    </li>
+
+                    <li>
+
+                        <a href="{{ url_for('menu_page') }}">
+
+                            Menu
+
+                        </a>
+
+                    </li>
+
+                    <li>
+
+                        <a href="{{ url_for('cart_page') }}">
+
+                            Cart
+
+                        </a>
+
+                    </li>
+
+                    <li>
+
+                        <a href="{{ url_for('checkout') }}">
+
+                            Checkout
+
+                        </a>
+
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+            <!-- CONTACT -->
+
+            <div class="footer-column">
+
+                <h3>
+
+                    Contact
+
+                </h3>
+
+                <ul>
+
+                    <li>
+
+                        📍 Chennai, Tamil Nadu
+
+                    </li>
+
+                    <li>
+
+                        📞 +91 98765 43210
+
+                    </li>
+
+                    <li>
+
+                        ✉ contact@restaurant.com
+
+                    </li>
+
+                    <li>
+
+                        🌐 www.restaurant.com
+
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+            <!-- OPENING HOURS -->
+
+            <div class="footer-column">
+
+                <h3>
+
+                    Opening Hours
+
+                </h3>
+
+                <ul>
+
+                    <li>
+
+                        Monday - Friday
+
+                        <br>
+
+                        10:00 AM - 10:00 PM
+
+                    </li>
+
+                    <li>
+
+                        Saturday
+
+                        <br>
+
+                        09:00 AM - 11:00 PM
+
+                    </li>
+
+                    <li>
+
+                        Sunday
+
+                        <br>
+
+                        09:00 AM - 11:00 PM
+
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+        <hr>
+
+        <div class="footer-bottom">
+
+            <p>
+
+                © 2026 Restaurant Ordering System.
+                All Rights Reserved.
+
+            </p>
+
+        </div>
+
+    </div>
+
+</footer>
+
+<!-- ===================================================== -->
+<!-- JAVASCRIPT -->
+<!-- ===================================================== -->
+
+<script src="{{ url_for('static', filename='js/menu.js') }}"></script>
+
+<script src="{{ url_for('static', filename='js/popup.js') }}"></script>
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    /* ===========================================
+       SEARCH
+    =========================================== */
+
+    const searchInput = document.getElementById("searchInput");
+
+    if (searchInput) {
+
+        searchInput.addEventListener("keyup", function () {
+
+            const value = this.value.toLowerCase();
+
+            const cards = document.querySelectorAll(".menu-item");
+
+            let found = false;
+
+            cards.forEach(card => {
+
+                const name = card.dataset.name.toLowerCase();
+
+                const category = card.dataset.category.toLowerCase();
+
+                if (name.includes(value) || category.includes(value)) {
+
+                    card.style.display = "block";
+
+                    found = true;
+
+                } else {
+
+                    card.style.display = "none";
+
+                }
+
+            });
+
+            const noResult = document.getElementById("noResult");
+
+            if (noResult) {
+
+                noResult.style.display = found ? "none" : "block";
+
+            }
+
+        });
+
+    }
+
+
+    /* ===========================================
+       CATEGORY FILTER
+    =========================================== */
+
+    const buttons = document.querySelectorAll(".category-btn");
+
+    buttons.forEach(button => {
+
+        button.addEventListener("click", function () {
+
+            buttons.forEach(btn => btn.classList.remove("active"));
+
+            this.classList.add("active");
+
+            const category = this.dataset.category;
+
+            const cards = document.querySelectorAll(".menu-item");
+
+            cards.forEach(card => {
+
+                if (
+
+                    category === "all" ||
+
+                    card.dataset.category === category
+
+                ) {
+
+                    card.style.display = "block";
+
+                } else {
+
+                    card.style.display = "none";
+
+                }
+
+            });
+
+        });
+
+    });
+
+});
+
+</script>
+
+</body>
+
+</html>

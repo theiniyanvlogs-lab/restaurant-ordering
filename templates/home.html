@@ -1,0 +1,1433 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Restaurant Ordering System</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+</head>
+
+<body>
+
+<!-- ========================================= -->
+<!-- HEADER -->
+<!-- ========================================= -->
+
+<header class="main-header">
+
+    <div class="container">
+
+        <div class="logo">
+
+            <i class="fa-solid fa-utensils"></i>
+
+            <div>
+
+                <h2>FoodExpress</h2>
+
+                <span>Fresh • Delicious • Fast</span>
+
+            </div>
+
+        </div>
+
+        <nav>
+
+            <a href="{{ url_for('home') }}" class="active">
+                Home
+            </a>
+
+            <a href="{{ url_for('menu_page') }}">
+                Menu
+            </a>
+
+            <a href="#popular-foods">
+                Popular
+            </a>
+
+            <a href="#offers">
+                Offers
+            </a>
+
+            <a href="#contact">
+                Contact
+            </a>
+
+            <a href="{{ url_for('cart_page') }}" class="cart-link">
+
+                <i class="fa-solid fa-cart-shopping"></i>
+
+                Cart
+
+                {% if cart_count > 0 %}
+                <span class="cart-badge">
+                    {{ cart_count }}
+                </span>
+                {% endif %}
+
+            </a>
+
+        </nav>
+
+    </div>
+
+</header>
+
+<!-- ========================================= -->
+<!-- HERO SECTION -->
+<!-- ========================================= -->
+
+<section class="hero">
+
+    <div class="hero-left">
+
+        <span class="hero-tag">
+
+            🔥 India's Favourite Online Restaurant
+
+        </span>
+
+        <h1>
+
+            Delicious Food
+
+            <span>Delivered Fast</span>
+
+            To Your Doorstep
+
+        </h1>
+
+        <p>
+
+            Experience restaurant-quality meals prepared by expert chefs using
+            premium ingredients. Order pizzas, burgers, pasta, desserts and
+            refreshing beverages with lightning-fast delivery and secure online
+            ordering.
+
+        </p>
+
+        <div class="hero-buttons">
+
+            <a href="{{ url_for('menu_page') }}"
+               class="hero-btn">
+
+                <i class="fa-solid fa-utensils"></i>
+
+                Explore Menu
+
+            </a>
+
+            <a href="{{ url_for('menu_page') }}"
+               class="order-btn">
+
+                <i class="fa-solid fa-bag-shopping"></i>
+
+                Order Now
+
+            </a>
+
+        </div>
+
+        <div class="hero-stats">
+
+            <div class="stat-card">
+
+                <h2>5000+</h2>
+
+                <p>Happy Customers</p>
+
+            </div>
+
+            <div class="stat-card">
+
+                <h2>150+</h2>
+
+                <p>Food Items</p>
+
+            </div>
+
+            <div class="stat-card">
+
+                <h2>25 Min</h2>
+
+                <p>Delivery</p>
+
+            </div>
+
+            <div class="stat-card">
+
+                <h2>4.9 ★</h2>
+
+                <p>Ratings</p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- HERO RIGHT -->
+
+    <div class="hero-right">
+
+        <img src="{{ url_for('static',
+        filename='images/pizza.jpg') }}"
+             class="hero-main-food"
+             alt="Pizza">
+
+        <img src="{{ url_for('static',
+        filename='images/burger.jpg') }}"
+             class="floating-food burger"
+             alt="Burger">
+
+        <img src="{{ url_for('static',
+        filename='images/dessert.jpg') }}"
+             class="floating-food dessert"
+             alt="Dessert">
+
+        <!-- Rating Card -->
+
+        <div class="rating-card">
+
+            <i class="fa-solid fa-star"></i>
+
+            <div>
+
+                <h3>4.9 / 5</h3>
+
+                <span>Customer Rating</span>
+
+            </div>
+
+        </div>
+
+        <!-- Delivery Card -->
+
+        <div class="delivery-card">
+
+            <i class="fa-solid fa-motorcycle"></i>
+
+            <div>
+
+                <h3>25 Minutes</h3>
+
+                <span>Fast Delivery</span>
+
+            </div>
+
+        </div>
+
+        <!-- Offer Card -->
+
+        <div class="offer-card">
+
+            <span>🔥 TODAY ONLY</span>
+
+            <h2>30% OFF</h2>
+
+            <p>On Orders Above ₹799</p>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ========================================= -->
+<!-- TOP FEATURES -->
+<!-- ========================================= -->
+
+<section class="top-features">
+
+    <div class="feature-box">
+
+        <i class="fa-solid fa-truck-fast"></i>
+
+        <h3>Fast Delivery</h3>
+
+        <p>Hot & Fresh Food Delivered Within 25 Minutes.</p>
+
+    </div>
+
+    <div class="feature-box">
+
+        <i class="fa-solid fa-bowl-food"></i>
+
+        <h3>Fresh Food</h3>
+
+        <p>Prepared Daily Using Premium Ingredients.</p>
+
+    </div>
+
+    <div class="feature-box">
+
+        <i class="fa-solid fa-credit-card"></i>
+
+        <h3>Secure Payment</h3>
+
+        <p>100% Safe Online & Cash On Delivery Options.</p>
+
+    </div>
+
+    <div class="feature-box">
+
+        <i class="fa-solid fa-award"></i>
+
+        <h3>Best Quality</h3>
+
+        <p>Trusted By Thousands Of Happy Customers.</p>
+
+    </div>
+
+</section>
+
+<!-- ========================================= -->
+<!-- LIVE OFFER -->
+<!-- ========================================= -->
+
+<section class="live-offer" id="offers">
+
+    <h2>
+
+        🎉 Weekend Mega Offer
+
+    </h2>
+
+    <p>
+
+        Buy Any 2 Large Pizzas and Get 1 Coke Absolutely FREE
+
+    </p>
+
+    <a href="{{ url_for('menu_page') }}"
+       class="offer-btn">
+
+        Order Now
+
+    </a>
+
+</section>
+
+<!-- ======== PART 1 END ======== -->
+
+<!-- ========================================= -->
+<!-- POPULAR CATEGORIES -->
+<!-- ========================================= -->
+
+<section class="categories">
+
+    <div class="section-title">
+
+        <span>OUR MENU</span>
+
+        <h2>🍽 Explore Food Categories</h2>
+
+        <p>
+            Discover our delicious collection prepared by experienced chefs
+            using fresh ingredients and authentic recipes.
+        </p>
+
+    </div>
+
+    <div class="category-grid">
+
+        <div class="category-card">
+
+            <img src="{{ url_for('static', filename='images/pizza.jpg') }}"
+                 alt="Pizza">
+
+            <div class="category-content">
+
+                <h3>🍕 Pizza</h3>
+
+                <p>20+ Delicious Flavours</p>
+
+                <a href="{{ url_for('menu_page') }}">
+                    Explore →
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="category-card">
+
+            <img src="{{ url_for('static', filename='images/burger.jpg') }}"
+                 alt="Burger">
+
+            <div class="category-content">
+
+                <h3>🍔 Burger</h3>
+
+                <p>Premium Grilled Burgers</p>
+
+                <a href="{{ url_for('menu_page') }}">
+                    Explore →
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="category-card">
+
+            <img src="{{ url_for('static', filename='images/pasta.jpg') }}"
+                 alt="Pasta">
+
+            <div class="category-content">
+
+                <h3>🍝 Pasta</h3>
+
+                <p>Italian Special Recipes</p>
+
+                <a href="{{ url_for('menu_page') }}">
+                    Explore →
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="category-card">
+
+            <img src="{{ url_for('static', filename='images/dessert.jpg') }}"
+                 alt="Dessert">
+
+            <div class="category-content">
+
+                <h3>🍰 Desserts</h3>
+
+                <p>Sweet Treats Everyday</p>
+
+                <a href="{{ url_for('menu_page') }}">
+                    Explore →
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ========================================= -->
+<!-- FEATURED FOODS -->
+<!-- ========================================= -->
+
+<section class="featured-foods" id="popular-foods">
+
+    <div class="section-title">
+
+        <span>CHEF'S SPECIAL</span>
+
+        <h2>🔥 Best Selling Foods</h2>
+
+        <p>
+
+            Most loved dishes by thousands of happy customers.
+
+        </p>
+
+    </div>
+
+    <div class="featured-grid">
+
+        {% for item in menu %}
+
+        <div class="featured-card">
+
+            <div class="discount-badge">
+
+                20% OFF
+
+            </div>
+
+            <img src="{{ url_for('static',
+                    filename='images/' + item.image) }}"
+                 alt="{{ item.name }}">
+
+            <div class="featured-content">
+
+                <span class="food-category">
+
+                    {{ item.category }}
+
+                </span>
+
+                <h3>
+
+                    {{ item.name }}
+
+                </h3>
+
+                <p>
+
+                    {{ item.description }}
+
+                </p>
+
+                <div class="food-rating">
+
+                    ⭐ {{ item.rating }}
+
+                </div>
+
+                <div class="featured-bottom">
+
+                    <div>
+
+                        <div class="food-price">
+
+                            ₹{{ "%.2f"|format(item.price) }}
+
+                        </div>
+
+                        <small>
+
+                            <del>
+
+                                ₹{{ "%.2f"|format(item.price * 1.25) }}
+
+                            </del>
+
+                        </small>
+
+                    </div>
+
+                    <span class="prep-time">
+
+                        ⏱ {{ item.prep_time }}
+
+                    </span>
+
+                </div>
+
+                <a href="{{ url_for('add_to_cart',
+                        item_id=item.id) }}"
+                   class="featured-btn">
+
+                    🛒 Add To Cart
+
+                </a>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+<!-- ========================================= -->
+<!-- SPECIAL OFFER -->
+<!-- ========================================= -->
+
+<section class="special-offer">
+
+    <div class="offer-content">
+
+        <span class="offer-tag">
+
+            🔥 LIMITED TIME OFFER
+
+        </span>
+
+        <h2>
+
+            Buy Any
+
+            <span>2 Large Pizzas</span>
+
+            Get 1 Coke FREE
+
+        </h2>
+
+        <p>
+
+            Enjoy premium cheese pizzas made with farm-fresh ingredients,
+            delicious toppings and complimentary chilled Coke.
+
+        </p>
+
+        <ul class="offer-list">
+
+            <li>✅ Premium Cheese</li>
+
+            <li>✅ Fresh Vegetables</li>
+
+            <li>✅ Free Soft Drink</li>
+
+            <li>✅ Fast Delivery</li>
+
+            <li>✅ Online Tracking</li>
+
+        </ul>
+
+        <div class="hero-buttons">
+
+            <a href="{{ url_for('menu_page') }}"
+               class="hero-btn">
+
+                🍕 Order Now
+
+            </a>
+
+            <a href="{{ url_for('menu_page') }}"
+               class="order-btn">
+
+                View Menu
+
+            </a>
+
+        </div>
+
+    </div>
+
+    <div class="offer-image">
+
+        <img src="{{ url_for('static',
+        filename='images/pizza.jpg') }}"
+             alt="Pizza">
+
+    </div>
+
+</section>
+
+<!-- ========================================= -->
+<!-- BEST FEATURES -->
+<!-- ========================================= -->
+
+<section class="why-choose">
+
+    <div class="section-title">
+
+        <span>OUR ADVANTAGES</span>
+
+        <h2>
+
+            ⭐ Why Customers Choose Us
+
+        </h2>
+
+        <p>
+
+            We serve quality food with excellent customer experience.
+
+        </p>
+
+    </div>
+
+    <div class="why-grid">
+
+        <div class="why-card">
+
+            <div class="why-icon">
+
+                🚚
+
+            </div>
+
+            <h3>
+
+                Fast Delivery
+
+            </h3>
+
+            <p>
+
+                Hot food delivered within 25 minutes.
+
+            </p>
+
+        </div>
+
+        <div class="why-card">
+
+            <div class="why-icon">
+
+                🥗
+
+            </div>
+
+            <h3>
+
+                Fresh Ingredients
+
+            </h3>
+
+            <p>
+
+                Daily prepared with premium quality ingredients.
+
+            </p>
+
+        </div>
+
+        <div class="why-card">
+
+            <div class="why-icon">
+
+                👨‍🍳
+
+            </div>
+
+            <h3>
+
+                Master Chefs
+
+            </h3>
+
+            <p>
+
+                Experienced chefs preparing every dish.
+
+            </p>
+
+        </div>
+
+        <div class="why-card">
+
+            <div class="why-icon">
+
+                💳
+
+            </div>
+
+            <h3>
+
+                Secure Payment
+
+            </h3>
+
+            <p>
+
+                100% safe online payment with Cash on Delivery.
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ========================================= -->
+<!-- HOW IT WORKS -->
+<!-- ========================================= -->
+
+<section class="delivery-process">
+
+    <div class="section-title">
+
+        <span>ORDER PROCESS</span>
+
+        <h2>📦 Order in 4 Easy Steps</h2>
+
+        <p>
+            Delicious food delivered to your doorstep in just a few simple steps.
+        </p>
+
+    </div>
+
+    <div class="process-grid">
+
+        <div class="process-card">
+
+            <div class="process-number">1</div>
+
+            <div class="process-icon">
+                🍽
+            </div>
+
+            <h3>Browse Menu</h3>
+
+            <p>
+                Explore our delicious collection of pizzas, burgers,
+                pasta, desserts and beverages.
+            </p>
+
+        </div>
+
+        <div class="process-card">
+
+            <div class="process-number">2</div>
+
+            <div class="process-icon">
+                🛒
+            </div>
+
+            <h3>Add To Cart</h3>
+
+            <p>
+                Select your favourite dishes and review your
+                shopping cart before checkout.
+            </p>
+
+        </div>
+
+        <div class="process-card">
+
+            <div class="process-number">3</div>
+
+            <div class="process-icon">
+                💳
+            </div>
+
+            <h3>Secure Checkout</h3>
+
+            <p>
+                Enter delivery details and choose your preferred
+                payment method securely.
+            </p>
+
+        </div>
+
+        <div class="process-card">
+
+            <div class="process-number">4</div>
+
+            <div class="process-icon">
+                🚚
+            </div>
+
+            <h3>Enjoy Your Meal</h3>
+
+            <p>
+                Sit back and relax while our delivery team brings
+                your food hot and fresh.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ========================================= -->
+<!-- CUSTOMER TESTIMONIALS -->
+<!-- ========================================= -->
+
+<section class="testimonials">
+
+    <div class="section-title">
+
+        <span>CUSTOMER REVIEWS</span>
+
+        <h2>💬 Loved By Thousands</h2>
+
+        <p>
+            Read what our happy customers say about us.
+        </p>
+
+    </div>
+
+    <div class="testimonial-grid">
+
+        <div class="testimonial-card">
+
+            <div class="stars">
+                ⭐⭐⭐⭐⭐
+            </div>
+
+            <p>
+                Amazing food quality, super-fast delivery and
+                outstanding customer service.
+                My favourite online restaurant.
+            </p>
+
+            <div class="customer">
+
+                <img src="https://i.pravatar.cc/100?img=12">
+
+                <div>
+
+                    <h4>Rahul Sharma</h4>
+
+                    <span>Regular Customer</span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="testimonial-card">
+
+            <div class="stars">
+                ⭐⭐⭐⭐⭐
+            </div>
+
+            <p>
+                Fresh burgers, delicious pizza and
+                beautiful website. Ordering is very easy.
+            </p>
+
+            <div class="customer">
+
+                <img src="https://i.pravatar.cc/100?img=32">
+
+                <div>
+
+                    <h4>Priya Nair</h4>
+
+                    <span>Food Blogger</span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="testimonial-card">
+
+            <div class="stars">
+                ⭐⭐⭐⭐⭐
+            </div>
+
+            <p>
+                Excellent packaging, premium taste and
+                quick delivery every time.
+                Highly recommended.
+            </p>
+
+            <div class="customer">
+
+                <img src="https://i.pravatar.cc/100?img=22">
+
+                <div>
+
+                    <h4>David Wilson</h4>
+
+                    <span>Verified Customer</span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ========================================= -->
+<!-- RESTAURANT STATISTICS -->
+<!-- ========================================= -->
+
+<section class="statistics">
+
+    <div class="stat-box">
+
+        <i class="fa-solid fa-users"></i>
+
+        <h2>5000+</h2>
+
+        <p>Happy Customers</p>
+
+    </div>
+
+    <div class="stat-box">
+
+        <i class="fa-solid fa-utensils"></i>
+
+        <h2>150+</h2>
+
+        <p>Food Items</p>
+
+    </div>
+
+    <div class="stat-box">
+
+        <i class="fa-solid fa-motorcycle"></i>
+
+        <h2>25 Min</h2>
+
+        <p>Fast Delivery</p>
+
+    </div>
+
+    <div class="stat-box">
+
+        <i class="fa-solid fa-star"></i>
+
+        <h2>4.9 ★</h2>
+
+        <p>Customer Rating</p>
+
+    </div>
+
+</section>
+
+<!-- ========================================= -->
+<!-- MOBILE APP -->
+<!-- ========================================= -->
+
+<section class="mobile-app">
+
+    <div class="app-content">
+
+        <span class="hero-tag">
+
+            📱 MOBILE APPLICATION
+
+        </span>
+
+        <h2>
+
+            Order Food Anytime,
+            Anywhere
+
+        </h2>
+
+        <p>
+
+            Download our mobile application to enjoy
+            exclusive discounts, reward points,
+            live order tracking and faster checkout.
+
+        </p>
+
+        <ul class="offer-list">
+
+            <li>✔ Live Order Tracking</li>
+
+            <li>✔ Instant Notifications</li>
+
+            <li>✔ Reward Points</li>
+
+            <li>✔ Exclusive Offers</li>
+
+        </ul>
+
+        <div class="store-buttons">
+
+            <a href="#"
+               class="store-btn">
+
+                <i class="fa-brands fa-google-play"></i>
+
+                Google Play
+
+            </a>
+
+            <a href="#"
+               class="store-btn">
+
+                <i class="fa-brands fa-apple"></i>
+
+                App Store
+
+            </a>
+
+        </div>
+
+    </div>
+
+    <div class="app-image">
+
+        <img src="{{ url_for('static',
+        filename='images/mobile-app.png') }}"
+             alt="Restaurant Mobile App">
+
+    </div>
+
+</section>
+
+<!-- ========================================= -->
+<!-- CALL TO ACTION -->
+<!-- ========================================= -->
+
+<section class="cta">
+
+    <span class="hero-tag">
+
+        🍕 READY TO ORDER?
+
+    </span>
+
+    <h2>
+
+        Fresh Food Is Just One Click Away
+
+    </h2>
+
+    <p>
+
+        Premium Ingredients • Fast Delivery • Secure Payments • Best Prices
+
+    </p>
+
+    <div class="hero-buttons">
+
+        <a href="{{ url_for('menu_page') }}"
+           class="hero-btn">
+
+            🍽 Browse Menu
+
+        </a>
+
+        <a href="{{ url_for('menu_page') }}"
+           class="order-btn">
+
+            🛒 Order Now
+
+        </a>
+
+    </div>
+
+</section>
+
+<!-- ========================================= -->
+<!-- NEWSLETTER -->
+<!-- ========================================= -->
+
+<section class="newsletter">
+
+    <div class="newsletter-content">
+
+        <span class="hero-tag">
+
+            📧 NEWSLETTER
+
+        </span>
+
+        <h2>
+
+            Stay Updated With Delicious Offers
+
+        </h2>
+
+        <p>
+
+            Subscribe to receive exclusive discount coupons,
+            new menu launches, festival offers and exciting
+            promotions directly in your inbox.
+
+        </p>
+
+        <form class="newsletter-form">
+
+            <input type="email"
+                   placeholder="Enter your email address"
+                   required>
+
+            <button type="submit">
+
+                Subscribe Now
+
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+<!-- ========================================= -->
+<!-- FOOTER -->
+<!-- ========================================= -->
+
+<footer id="contact">
+
+    <div class="footer-container">
+
+        <div class="footer-grid">
+
+            <!-- ABOUT -->
+
+            <div class="footer-column">
+
+                <div class="footer-logo">
+
+                    🍽 FoodExpress
+
+                </div>
+
+                <p class="footer-about">
+
+                    We prepare delicious meals using fresh ingredients
+                    and deliver them quickly to your doorstep.
+                    Your happiness is our highest priority.
+
+                </p>
+
+                <div class="social-icons">
+
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+
+                    <a href="#"><i class="fab fa-x-twitter"></i></a>
+
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+
+                </div>
+
+            </div>
+
+            <!-- QUICK LINKS -->
+
+            <div class="footer-column">
+
+                <h3>Quick Links</h3>
+
+                <ul>
+
+                    <li>
+
+                        <a href="{{ url_for('home') }}">
+
+                            🏠 Home
+
+                        </a>
+
+                    </li>
+
+                    <li>
+
+                        <a href="{{ url_for('menu_page') }}">
+
+                            🍔 Menu
+
+                        </a>
+
+                    </li>
+
+                    <li>
+
+                        <a href="{{ url_for('cart_page') }}">
+
+                            🛒 Cart
+
+                        </a>
+
+                    </li>
+
+                    <li>
+
+                        <a href="{{ url_for('checkout') }}">
+
+                            💳 Checkout
+
+                        </a>
+
+                    </li>
+
+                </ul>
+
+            </div>
+
+            <!-- CONTACT -->
+
+            <div class="footer-column">
+
+                <h3>Contact Us</h3>
+
+                <ul class="contact-info">
+
+                    <li>
+
+                        <i class="fa-solid fa-location-dot"></i>
+
+                        Chennai, Tamil Nadu
+
+                    </li>
+
+                    <li>
+
+                        <i class="fa-solid fa-phone"></i>
+
+                        +91 98765 43210
+
+                    </li>
+
+                    <li>
+
+                        <i class="fa-solid fa-envelope"></i>
+
+                        contact@foodexpress.com
+
+                    </li>
+
+                    <li>
+
+                        <i class="fa-solid fa-globe"></i>
+
+                        www.foodexpress.com
+
+                    </li>
+
+                </ul>
+
+            </div>
+
+            <!-- OPENING HOURS -->
+
+            <div class="footer-column">
+
+                <h3>Opening Hours</h3>
+
+                <ul class="opening-hours">
+
+                    <li>
+
+                        Monday - Friday
+
+                        <span>10:00 AM - 10:00 PM</span>
+
+                    </li>
+
+                    <li>
+
+                        Saturday
+
+                        <span>09:00 AM - 11:00 PM</span>
+
+                    </li>
+
+                    <li>
+
+                        Sunday
+
+                        <span>09:00 AM - 11:00 PM</span>
+
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+        <hr>
+
+        <div class="footer-bottom">
+
+            <p>
+
+                © 2026 FoodExpress Restaurant Ordering System.
+                All Rights Reserved.
+
+            </p>
+
+            <div class="footer-bottom-links">
+
+                <a href="#">
+
+                    Privacy Policy
+
+                </a>
+
+                <a href="#">
+
+                    Terms & Conditions
+
+                </a>
+
+                <a href="#">
+
+                    Refund Policy
+
+                </a>
+
+                <a href="#">
+
+                    Support
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</footer>
+
+<!-- ========================================= -->
+<!-- FLOATING ORDER BUTTON -->
+<!-- ========================================= -->
+
+<a href="{{ url_for('menu_page') }}"
+   class="floating-order">
+
+    🍕 Order Now
+
+</a>
+
+<!-- ========================================= -->
+<!-- SCROLL TO TOP -->
+<!-- ========================================= -->
+
+<button id="scrollTop">
+
+    ↑
+
+</button>
+
+<!-- ========================================= -->
+<!-- JAVASCRIPT -->
+<!-- ========================================= -->
+
+<script>
+
+const scrollBtn = document.getElementById("scrollTop");
+
+window.onscroll = function () {
+
+    if (document.documentElement.scrollTop > 300) {
+
+        scrollBtn.style.display = "block";
+
+    } else {
+
+        scrollBtn.style.display = "none";
+
+    }
+
+};
+
+scrollBtn.onclick = function () {
+
+    window.scrollTo({
+
+        top: 0,
+
+        behavior: "smooth"
+
+    });
+
+};
+
+</script>
+
+<!-- ========================================= -->
+<!-- AI Chatbot -->
+<!-- ========================================= -->
+
+{% include 'chatbot.html' %}
+
+</body>
+
+</html>
+

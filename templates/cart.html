@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+
+Shopping Cart
+
+</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='css/style.css') }}">
+
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+rel="stylesheet">
+
+</head>
+
+<body>
+
+
+<!-- ================================================= -->
+<!-- HEADER -->
+<!-- ================================================= -->
+
+<header>
+
+<div class="logo">
+
+🍽 Restaurant Ordering System
+
+</div>
+
+<nav>
+
+<a href="{{ url_for('home') }}">
+
+🏠 Home
+
+</a>
+
+<a href="{{ url_for('menu_page') }}">
+
+🍔 Menu
+
+</a>
+
+<a href="{{ url_for('cart_page') }}"
+class="active">
+
+🛒 Cart
+
+{% if cart_count > 0 %}
+
+<span class="cart-badge">
+
+{{ cart_count }}
+
+</span>
+
+{% endif %}
+
+</a>
+
+<a href="{{ url_for('checkout') }}">
+
+💳 Checkout
+
+</a>
+
+</nav>
+
+</header>
+
+
+
+<!-- ================================================= -->
+<!-- HERO -->
+<!-- ================================================= -->
+
+<section class="cart-hero">
+
+<div class="cart-hero-content">
+
+<span class="hero-tag">
+
+🛒 Shopping Cart
+
+</span>
+
+<h1>
+
+Review Your
+
+<span>
+
+Selected Items
+
+</span>
+
+</h1>
+
+<p>
+
+Freshly prepared food is waiting for you.
+Review your cart, update quantities,
+and proceed to secure checkout.
+
+</p>
+
+<div class="hero-buttons">
+
+<a href="{{ url_for('menu_page') }}"
+class="btn btn-orange">
+
+🍽 Continue Shopping
+
+</a>
+
+<a href="{{ url_for('checkout') }}"
+class="btn btn-blue">
+
+💳 Checkout
+
+</a>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- ================================================= -->
+<!-- CART CONTAINER -->
+<!-- ================================================= -->
+
+<section class="cart-section">
+
+<div class="cart-container">
+
+
+
+<!-- ================================================= -->
+<!-- LEFT SIDE -->
+<!-- ================================================= -->
+
+<div class="cart-items">
+
+<h2>
+
+🛒 Your Cart Items
+
+</h2>
+
+{% if cart %}
+
+<div class="cart-list">
+
+{% for item in cart %}
+
+<!-- ================================================= -->
+<!-- CART CARD -->
+<!-- ================================================= -->
+
+<div class="cart-card">
+
+<div class="cart-image">
+
+<img
+
+src="{{ url_for('static',
+filename='images/' + item.image) }}"
+
+alt="{{ item.name }}">
+
+</div>
+
+
+
+<!-- ================================================= -->
+<!-- DETAILS -->
+<!-- ================================================= -->
+
+<div class="cart-details">
+
+<span class="food-category">
+
+🍽 Food Item
+
+</span>
+
+<h3>
+
+{{ item.name }}
+
+</h3>
+
+<p>
+
+Freshly prepared using premium ingredients.
+
+</p>
+
+<div class="cart-meta">
+
+<div class="food-price">
+
+${{ "%.2f"|format(item.price) }}
+
+</div>
+
+<div class="food-rating">
+
+⭐ 4.9
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- ================================================= -->
+<!-- QUANTITY -->
+<!-- ================================================= -->
+
+<div class="cart-quantity">
+
+<a
+
+href="{{ url_for('decrease_quantity',
+item_id=item.id) }}"
+
+class="qty-btn">
+
+➖
+
+</a>
+
+<span class="qty-number">
+
+{{ item.quantity }}
+
+</span>
+
+<a
+
+href="{{ url_for('increase_quantity',
+item_id=item.id) }}"
+
+class="qty-btn">
+
+➕
+
+</a>
+
+</div>
+
+
+
+<!-- ================================================= -->
+<!-- TOTAL -->
+<!-- ================================================= -->
+
+<div class="cart-total">
+
+<h3>
+
+${{ "%.2f"|format(item.price * item.quantity) }}
+
+</h3>
+
+<p>
+
+Subtotal
+
+</p>
+
+</div>
+
+
+
+<!-- ================================================= -->
+<!-- REMOVE -->
+<!-- ================================================= -->
+
+<div class="cart-remove">
+
+<a
+
+href="{{ url_for('remove_item',
+item_id=item.id) }}"
+
+class="remove-btn">
+
+🗑 Remove
+
+</a>
+
+</div>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+{% else %}
+
+
+
+<!-- ================================================= -->
+<!-- EMPTY CART -->
+<!-- ================================================= -->
+
+<div class="empty-cart">
+
+<img
+
+src="{{ url_for('static',
+filename='images/empty-cart.png') }}"
+
+alt="Empty Cart">
+
+<h2>
+
+Your Cart is Empty
+
+</h2>
+
+<p>
+
+Looks like you haven't added any delicious
+food to your cart yet.
+
+</p>
+
+<a
+
+href="{{ url_for('menu_page') }}"
+
+class="btn btn-orange">
+
+🍔 Browse Menu
+
+</a>
+
+</div>
+
+{% endif %}
+
+</div>
+
+
+
+<!-- ================================================= -->
+<!-- RIGHT SIDE START -->
+<!-- ================================================= -->
+
+<div class="cart-summary">
+
+    <!-- ================================================= -->
+<!-- ORDER SUMMARY -->
+<!-- ================================================= -->
+
+<h2>
+
+📋 Order Summary
+
+</h2>
+
+<hr>
+
+<div class="summary-row">
+
+<span>
+
+Total Items
+
+</span>
+
+<strong>
+
+{{ cart_count }}
+
+</strong>
+
+</div>
+
+<div class="summary-row">
+
+<span>
+
+Subtotal
+
+</span>
+
+<strong>
+
+${{ "%.2f"|format(total) }}
+
+</strong>
+
+</div>
+
+<div class="summary-row">
+
+<span>
+
+Delivery Charges
+
+</span>
+
+<strong>
+
+FREE
+
+</strong>
+
+</div>
+
+<div class="summary-row">
+
+<span>
+
+Packing Charges
+
+</span>
+
+<strong>
+
+FREE
+
+</strong>
+
+</div>
+
+<div class="summary-row">
+
+<span>
+
+Discount
+
+</span>
+
+<strong>
+
+$0.00
+
+</strong>
+
+</div>
+
+<hr>
+
+<div class="summary-row grand-total">
+
+<span>
+
+Grand Total
+
+</span>
+
+<strong>
+
+${{ "%.2f"|format(total) }}
+
+</strong>
+
+</div>
+
+
+
+<!-- ================================================= -->
+<!-- COUPON -->
+<!-- ================================================= -->
+
+<div class="coupon-section">
+
+<h3>
+
+🎁 Coupon Code
+
+</h3>
+
+<div class="coupon-box">
+
+<input
+
+type="text"
+
+placeholder="Enter Coupon Code">
+
+<button
+
+type="button"
+
+class="apply-btn">
+
+Apply
+
+</button>
+
+</div>
+
+</div>
+
+
+
+<!-- ================================================= -->
+<!-- BENEFITS -->
+<!-- ================================================= -->
+
+<div class="benefits-box">
+
+<h3>
+
+✨ Why Order From Us?
+
+</h3>
+
+<ul>
+
+<li>
+
+✅ Freshly Prepared Food
+
+</li>
+
+<li>
+
+🚚 Free Delivery
+
+</li>
+
+<li>
+
+⚡ Fast 25-Minute Delivery
+
+</li>
+
+<li>
+
+💳 Secure Checkout
+
+</li>
+
+<li>
+
+⭐ Rated 4.9 / 5
+
+</li>
+
+</ul>
+
+</div>
+
+
+
+<!-- ================================================= -->
+<!-- PAYMENT ICONS -->
+<!-- ================================================= -->
+
+<div class="payment-box">
+
+<h3>
+
+Accepted Payments
+
+</h3>
+
+<div class="payment-icons">
+
+<span>
+
+💳 Visa
+
+</span>
+
+<span>
+
+MasterCard
+
+</span>
+
+<span>
+
+🅿 PayPal
+
+</span>
+
+<span>
+
+💵 Cash
+
+</span>
+
+</div>
+
+</div>
+
+
+
+<!-- ================================================= -->
+<!-- CHECKOUT BUTTON -->
+<!-- ================================================= -->
+
+<a
+
+href="{{ url_for('checkout') }}"
+
+class="checkout-btn">
+
+💳 Proceed To Checkout
+
+</a>
+
+
+
+<!-- ================================================= -->
+<!-- SAFE PAYMENT -->
+<!-- ================================================= -->
+
+<div class="secure-box">
+
+🔒
+
+<strong>
+
+100% Secure Checkout
+
+</strong>
+
+<p>
+
+Your payment information is encrypted and protected.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ================================================= -->
+<!-- RECOMMENDED FOOD -->
+<!-- ================================================= -->
+
+<section class="recommended-section">
+
+<div class="section-title">
+
+<span>
+
+CHEF'S RECOMMENDATION
+
+</span>
+
+<h2>
+
+🍕 You May Also Like
+
+</h2>
+
+<p>
+
+Complete your meal with our customer favourites.
+
+</p>
+
+</div>
+
+<div class="recommended-grid">
+
+<div class="recommend-card">
+
+<img
+src="{{ url_for('static', filename='images/pizza.jpg') }}"
+alt="Pizza">
+
+<h3>
+
+Margherita Pizza
+
+</h3>
+
+<p>
+
+Classic Italian pizza with mozzarella cheese.
+
+</p>
+
+<div class="recommend-footer">
+
+<span class="food-price">
+
+$12.99
+
+</span>
+
+<a
+href="{{ url_for('add_to_cart', item_id=1) }}"
+class="add-cart-btn">
+
+🛒 Add
+
+</a>
+
+</div>
+
+</div>
+
+
+
+<div class="recommend-card">
+
+<img
+src="{{ url_for('static', filename='images/burger.jpg') }}"
+alt="Burger">
+
+<h3>
+
+Chicken Burger
+
+</h3>
+
+<p>
+
+Juicy grilled chicken with fresh vegetables.
+
+</p>
+
+<div class="recommend-footer">
+
+<span class="food-price">
+
+$9.99
+
+</span>
+
+<a
+href="{{ url_for('add_to_cart', item_id=2) }}"
+class="add-cart-btn">
+
+🛒 Add
+
+</a>
+
+</div>
+
+</div>
+
+
+
+<div class="recommend-card">
+
+<img
+src="{{ url_for('static', filename='images/dessert.jpg') }}"
+alt="Dessert">
+
+<h3>
+
+Chocolate Cake
+
+</h3>
+
+<p>
+
+Soft chocolate cake topped with fresh cream.
+
+</p>
+
+<div class="recommend-footer">
+
+<span class="food-price">
+
+$6.99
+
+</span>
+
+<a
+href="{{ url_for('add_to_cart', item_id=4) }}"
+class="add-cart-btn">
+
+🛒 Add
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- ================================================= -->
+<!-- NEWSLETTER -->
+<!-- ================================================= -->
+
+<section class="newsletter">
+
+<div class="newsletter-content">
+
+<h2>
+
+📧 Subscribe to Our Newsletter
+
+</h2>
+
+<p>
+
+Receive exclusive offers, discount coupons,
+festival specials and new menu updates.
+
+</p>
+
+<form class="newsletter-form">
+
+<input
+type="email"
+placeholder="Enter your email address"
+required>
+
+<button
+type="submit">
+
+Subscribe
+
+</button>
+
+</form>
+
+</div>
+
+</section>
+
+
+
+<!-- ================================================= -->
+<!-- FOOTER -->
+<!-- ================================================= -->
+
+<footer>
+
+<div class="footer-container">
+
+<div class="footer-grid">
+
+
+
+<!-- ABOUT -->
+
+<div class="footer-column">
+
+<h3>
+
+🍽 Restaurant Ordering System
+
+</h3>
+
+<p>
+
+Fresh food prepared with premium ingredients,
+served with love and delivered quickly.
+
+</p>
+
+<div class="social-icons">
+
+<a href="#">📘</a>
+
+<a href="#">📷</a>
+
+<a href="#">▶️</a>
+
+<a href="#">💼</a>
+
+</div>
+
+</div>
+
+
+
+<!-- QUICK LINKS -->
+
+<div class="footer-column">
+
+<h3>
+
+Quick Links
+
+</h3>
+
+<ul>
+
+<li>
+
+<a href="{{ url_for('home') }}">
+
+🏠 Home
+
+</a>
+
+</li>
+
+<li>
+
+<a href="{{ url_for('menu_page') }}">
+
+🍔 Menu
+
+</a>
+
+</li>
+
+<li>
+
+<a href="{{ url_for('cart_page') }}">
+
+🛒 Cart
+
+</a>
+
+</li>
+
+<li>
+
+<a href="{{ url_for('checkout') }}">
+
+💳 Checkout
+
+</a>
+
+</li>
+
+</ul>
+
+</div>
+
+
+
+<!-- CONTACT -->
+
+<div class="footer-column">
+
+<h3>
+
+Contact
+
+</h3>
+
+<ul>
+
+<li>
+
+📍 Chennai, Tamil Nadu
+
+</li>
+
+<li>
+
+📞 +91 98765 43210
+
+</li>
+
+<li>
+
+✉ contact@restaurant.com
+
+</li>
+
+<li>
+
+🌐 www.restaurant.com
+
+</li>
+
+</ul>
+
+</div>
+
+
+
+<!-- OPENING HOURS -->
+
+<div class="footer-column">
+
+<h3>
+
+Opening Hours
+
+</h3>
+
+<ul>
+
+<li>
+
+Monday - Friday
+
+<br>
+
+10:00 AM - 10:00 PM
+
+</li>
+
+<li>
+
+Saturday
+
+<br>
+
+09:00 AM - 11:00 PM
+
+</li>
+
+<li>
+
+Sunday
+
+<br>
+
+09:00 AM - 11:00 PM
+
+</li>
+
+</ul>
+
+</div>
+
+</div>
+
+
+
+<hr>
+
+<div class="footer-bottom">
+
+<p>
+
+© 2026 Restaurant Ordering System.
+
+All Rights Reserved.
+
+</p>
+
+</div>
+
+</div>
+
+</footer>
+
+
+
+<!-- ================================================= -->
+<!-- JAVASCRIPT -->
+<!-- ================================================= -->
+
+<script>
+
+const couponInput = document.querySelector(".coupon-box input");
+const applyButton = document.querySelector(".apply-btn");
+
+applyButton.addEventListener("click", function(){
+
+    if(couponInput.value.trim()===""){
+
+        alert("Please enter a coupon code.");
+
+    }else{
+
+        alert("Coupon feature will be available soon.");
+
+    }
+
+});
+
+</script>
+
+</body>
+
+</html>

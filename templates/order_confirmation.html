@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+
+Order Confirmation
+
+</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='css/style.css') }}">
+
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+rel="stylesheet">
+
+</head>
+
+<body>
+
+
+
+<!-- ================================================= -->
+<!-- HEADER -->
+<!-- ================================================= -->
+
+<header>
+
+<div class="logo">
+
+🍽 Restaurant Ordering System
+
+</div>
+
+<nav>
+
+<a href="{{ url_for('home') }}">
+
+🏠 Home
+
+</a>
+
+<a href="{{ url_for('menu_page') }}">
+
+🍔 Menu
+
+</a>
+
+<a href="{{ url_for('cart_page') }}">
+
+🛒 Cart
+
+</a>
+
+<a href="{{ url_for('checkout') }}">
+
+💳 Checkout
+
+</a>
+
+</nav>
+
+</header>
+
+
+
+<!-- ================================================= -->
+<!-- SUCCESS SECTION -->
+<!-- ================================================= -->
+
+<section class="confirmation-section">
+
+<div class="confirmation-card">
+
+<div class="success-icon">
+
+✅
+
+</div>
+
+<h1>
+
+Thank You!
+
+Your Order Has Been Placed Successfully
+
+</h1>
+
+<p>
+
+Your delicious meal is now being prepared by our expert chefs.
+
+</p>
+
+
+
+<!-- ================================================= -->
+<!-- ORDER DETAILS -->
+<!-- ================================================= -->
+
+<div class="order-info">
+
+<div class="info-row">
+
+<span class="info-title">
+
+Order ID
+
+</span>
+
+<span class="info-value">
+
+{{ order_id }}
+
+</span>
+
+</div>
+
+
+
+<div class="info-row">
+
+<span class="info-title">
+
+Customer
+
+</span>
+
+<span class="info-value">
+
+{{ customer_name }}
+
+</span>
+
+</div>
+
+
+
+<div class="info-row">
+
+<span class="info-title">
+
+Order Status
+
+</span>
+
+<span class="status-badge">
+
+Preparing
+
+</span>
+
+</div>
+
+
+
+<div class="info-row">
+
+<span class="info-title">
+
+Total Amount
+
+</span>
+
+<span class="info-value">
+
+${{ "%.2f"|format(total) }}
+
+</span>
+
+</div>
+
+
+
+<div class="info-row">
+
+<span class="info-title">
+
+Estimated Delivery
+
+</span>
+
+<span class="info-value">
+
+25 - 30 Minutes
+
+</span>
+
+</div>
+
+</div>
+
+
+
+<!-- ================================================= -->
+<!-- TOTAL -->
+<!-- ================================================= -->
+
+<div class="total-box">
+
+<h2>
+
+Grand Total
+
+</h2>
+
+<h1>
+
+${{ "%.2f"|format(total) }}
+
+</h1>
+
+</div>
+
+<!-- ================================================= -->
+<!-- ORDER TIMELINE -->
+<!-- ================================================= -->
+
+<div class="order-timeline">
+
+<div class="timeline-item">
+
+<div class="timeline-icon">
+
+📝
+
+</div>
+
+<h3>
+
+Order Received
+
+</h3>
+
+<p>
+
+Your order has been received successfully.
+
+</p>
+
+</div>
+
+
+
+<div class="timeline-item">
+
+<div class="timeline-icon">
+
+👨‍🍳
+
+</div>
+
+<h3>
+
+Preparing
+
+</h3>
+
+<p>
+
+Our chefs are preparing your delicious meal.
+
+</p>
+
+</div>
+
+
+
+<div class="timeline-item">
+
+<div class="timeline-icon">
+
+🚚
+
+</div>
+
+<h3>
+
+Out for Delivery
+
+</h3>
+
+<p>
+
+Your order will be delivered within 25–30 minutes.
+
+</p>
+
+</div>
+
+</div>
+
+
+
+<!-- ================================================= -->
+<!-- THANK YOU MESSAGE -->
+<!-- ================================================= -->
+
+<div class="confirm-message">
+
+<h3>
+
+❤️ Thank You for Ordering!
+
+</h3>
+
+<p>
+
+We appreciate your trust in our restaurant.
+
+Your food is being freshly prepared and will be delivered
+hot and delicious.
+
+</p>
+
+</div>
+
+
+
+<!-- ================================================= -->
+<!-- BUTTONS -->
+<!-- ================================================= -->
+
+<div class="confirm-buttons">
+
+<a
+
+href="{{ url_for('home') }}"
+
+class="confirm-btn home-btn">
+
+🏠 Home
+
+</a>
+
+<a
+
+href="{{ url_for('menu_page') }}"
+
+class="confirm-btn menu-btn">
+
+🍽 Continue Shopping
+
+</a>
+
+<button
+
+onclick="window.print()"
+
+class="confirm-btn print-btn">
+
+🖨 Print Receipt
+
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- ================================================= -->
+<!-- NEWSLETTER -->
+<!-- ================================================= -->
+
+<section class="newsletter">
+
+<div class="newsletter-content">
+
+<h2>
+
+📧 Subscribe to Our Newsletter
+
+</h2>
+
+<p>
+
+Receive exclusive discounts, new menu updates
+and festival offers directly in your inbox.
+
+</p>
+
+<form class="newsletter-form">
+
+<input
+
+type="email"
+
+placeholder="Enter your email address"
+
+required>
+
+<button
+type="submit">
+
+Subscribe
+
+</button>
+
+</form>
+
+</div>
+
+</section>
+
+
+
+<!-- ================================================= -->
+<!-- FOOTER -->
+<!-- ================================================= -->
+
+<footer>
+
+<div class="footer-container">
+
+<div class="footer-grid">
+
+
+
+<!-- ABOUT -->
+
+<div class="footer-column">
+
+<h3>
+
+🍽 Restaurant Ordering System
+
+</h3>
+
+<p>
+
+Serving fresh, delicious food with premium quality
+ingredients and fast delivery every day.
+
+</p>
+
+<div class="social-icons">
+
+<a href="#">📘</a>
+
+<a href="#">📷</a>
+
+<a href="#">▶️</a>
+
+<a href="#">💼</a>
+
+</div>
+
+</div>
+
+
+
+<!-- QUICK LINKS -->
+
+<div class="footer-column">
+
+<h3>
+
+Quick Links
+
+</h3>
+
+<ul>
+
+<li><a href="{{ url_for('home') }}">🏠 Home</a></li>
+
+<li><a href="{{ url_for('menu_page') }}">🍔 Menu</a></li>
+
+<li><a href="{{ url_for('cart_page') }}">🛒 Cart</a></li>
+
+<li><a href="{{ url_for('checkout') }}">💳 Checkout</a></li>
+
+</ul>
+
+</div>
+
+
+
+<!-- CONTACT -->
+
+<div class="footer-column">
+
+<h3>
+
+Contact
+
+</h3>
+
+<ul>
+
+<li>
+
+📍 Chennai, Tamil Nadu
+
+</li>
+
+<li>
+
+📞 +91 98765 43210
+
+</li>
+
+<li>
+
+✉ contact@restaurant.com
+
+</li>
+
+<li>
+
+🌐 www.restaurant.com
+
+</li>
+
+</ul>
+
+</div>
+
+
+
+<!-- OPENING HOURS -->
+
+<div class="footer-column">
+
+<h3>
+
+Opening Hours
+
+</h3>
+
+<ul>
+
+<li>
+
+Monday – Friday
+
+<br>
+
+10:00 AM – 10:00 PM
+
+</li>
+
+<li>
+
+Saturday
+
+<br>
+
+09:00 AM – 11:00 PM
+
+</li>
+
+<li>
+
+Sunday
+
+<br>
+
+09:00 AM – 11:00 PM
+
+</li>
+
+</ul>
+
+</div>
+
+</div>
+
+
+
+<hr>
+
+<div class="footer-bottom">
+
+<p>
+
+© 2026 Restaurant Ordering System.
+
+All Rights Reserved.
+
+</p>
+
+</div>
+
+</div>
+
+</footer>
+
+
+
+<!-- ================================================= -->
+<!-- JAVASCRIPT -->
+<!-- ================================================= -->
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function(){
+
+    const badge=document.querySelector(".status-badge");
+
+    setTimeout(function(){
+
+        badge.innerHTML="👨‍🍳 Preparing";
+
+    },2000);
+
+});
+
+</script>
+
+</body>
+
+</html>

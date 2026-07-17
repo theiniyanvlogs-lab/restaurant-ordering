@@ -1,0 +1,7 @@
+venv/
+__pycache__/
+*.pyc
+.env
+
+# Google Service Account Key
+credentials.json

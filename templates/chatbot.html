@@ -1,0 +1,55 @@
+
+<h1 style="background:red;color:white;padding:10px;">
+CHATBOT LOADED
+</h1>
+
+<!-- ==========================================
+     FoodExpress AI Chatbot
+========================================== -->
+
+<div id="chatbot-container">
+
+    <!-- Chat Button -->
+    <button id="chat-toggle">
+        💬
+    </button>
+
+    <!-- Chat Window -->
+    <div id="chat-window">
+
+        <!-- Header -->
+        <div class="chat-header">
+            🤖 FoodExpress AI
+        </div>
+
+        <!-- Messages -->
+        <div id="chat-messages">
+
+            <div class="bot-message">
+                Hello! 👋 Welcome to FoodExpress.<br><br>
+                How can I help you today?
+            </div>
+
+        </div>
+
+        <!-- Input Area -->
+        <div class="chat-input">
+
+            <input
+                type="text"
+                id="user-message"
+                placeholder="Type your message..."
+            >
+
+            <button id="send-message">
+                Send
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Chatbot JavaScript -->
+<script src="{{ url_for('static', filename='js/chatbot.js') }}"></script>

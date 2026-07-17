@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Secure Checkout</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+</head>
+
+<body>
+
+<!-- ===================================================== -->
+<!-- HEADER -->
+<!-- ===================================================== -->
+
+<header>
+
+    <div class="logo">
+
+        🍽 Restaurant Ordering System
+
+    </div>
+
+    <nav>
+
+        <a href="{{ url_for('home') }}">
+
+            🏠 Home
+
+        </a>
+
+        <a href="{{ url_for('menu_page') }}">
+
+            🍔 Menu
+
+        </a>
+
+        <a href="{{ url_for('cart_page') }}">
+
+            🛒 Cart
+
+            {% if cart_count > 0 %}
+
+            <span class="cart-badge">
+
+                {{ cart_count }}
+
+            </span>
+
+            {% endif %}
+
+        </a>
+
+        <a href="{{ url_for('checkout') }}"
+           class="active">
+
+            💳 Checkout
+
+        </a>
+
+    </nav>
+
+</header>
+
+<!-- ===================================================== -->
+<!-- HERO -->
+<!-- ===================================================== -->
+
+<section class="menu-hero">
+
+    <div class="menu-hero-content">
+
+        <span class="hero-tag">
+
+            🔒 100% Secure Payment
+
+        </span>
+
+        <h1>
+
+            Secure
+
+            <span>
+
+                Checkout
+
+            </span>
+
+        </h1>
+
+        <p>
+
+            Complete your order by entering your delivery
+            details and selecting your preferred payment
+            method.
+
+        </p>
+
+    </div>
+
+</section>
+
+<!-- ===================================================== -->
+<!-- CHECKOUT -->
+<!-- ===================================================== -->
+
+<section class="checkout-section">
+
+    <div class="checkout-container">
+
+        <!-- ============================================= -->
+        <!-- LEFT SIDE -->
+        <!-- ============================================= -->
+
+        <div class="checkout-left">
+
+            <form method="POST">
+
+                <!-- ===================================== -->
+                <!-- CUSTOMER DETAILS -->
+                <!-- ===================================== -->
+
+                <div class="checkout-card">
+
+                    <h2>
+
+                        👤 Customer Details
+
+                    </h2>
+
+                    <div class="form-row">
+
+                        <div class="form-group">
+
+                            <label>
+
+                                Full Name
+
+                            </label>
+
+                            <input type="text"
+                                   name="name"
+                                   placeholder="Enter your full name"
+                                   required>
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label>
+
+                                Email Address
+
+                            </label>
+
+                            <input type="email"
+                                   name="email"
+                                   placeholder="Enter your email"
+                                   required>
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-row">
+
+                        <div class="form-group">
+
+                            <label>
+
+                                Phone Number
+
+                            </label>
+
+                            <input type="text"
+                                   name="phone"
+                                   placeholder="Enter your phone number"
+                                   required>
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label>
+
+                                Delivery Address
+
+                            </label>
+
+                            <textarea name="address"
+                                      rows="4"
+                                      placeholder="Enter your delivery address"
+                                      required></textarea>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                                <!-- ===================================== -->
+                <!-- PAYMENT METHOD -->
+                <!-- ===================================== -->
+
+                <div class="checkout-card">
+
+                    <h2>
+
+                        💳 Payment Method
+
+                    </h2>
+
+                    <div class="payment-options">
+
+                        <label class="payment-card">
+
+                            <input type="radio"
+                                   name="payment"
+                                   value="Credit / Debit Card"
+                                   checked>
+
+                            <span class="payment-icon">
+
+                                💳
+
+                            </span>
+
+                            <div>
+
+                                <strong>
+
+                                    Credit / Debit Card
+
+                                </strong>
+
+                                <p>
+
+                                    Visa, MasterCard & RuPay
+
+                                </p>
+
+                            </div>
+
+                        </label>
+
+
+                        <label class="payment-card">
+
+                            <input type="radio"
+                                   name="payment"
+                                   value="PayPal">
+
+                            <span class="payment-icon">
+
+                                🅿️
+
+                            </span>
+
+                            <div>
+
+                                <strong>
+
+                                    PayPal
+
+                                </strong>
+
+                                <p>
+
+                                    Fast & Secure Payment
+
+                                </p>
+
+                            </div>
+
+                        </label>
+
+
+                        <label class="payment-card">
+
+                            <input type="radio"
+                                   name="payment"
+                                   value="Cash on Delivery">
+
+                            <span class="payment-icon">
+
+                                💵
+
+                            </span>
+
+                            <div>
+
+                                <strong>
+
+                                    Cash on Delivery
+
+                                </strong>
+
+                                <p>
+
+                                    Pay when your order arrives
+
+                                </p>
+
+                            </div>
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+        </div>
+
+
+        <!-- ============================================= -->
+        <!-- RIGHT SIDE -->
+        <!-- ============================================= -->
+
+        <div class="checkout-right">
+
+            <div class="checkout-card">
+
+                <h2>
+
+                    🛒 Order Summary
+
+                </h2>
+
+                {% if cart %}
+
+                <div class="summary-items">
+
+                    {% for item in cart %}
+
+                    <div class="summary-item">
+
+                        <div>
+
+                            <h4>
+
+                                {{ item.name }}
+
+                            </h4>
+
+                            <small>
+
+                                Quantity :
+                                {{ item.quantity }}
+
+                            </small>
+
+                        </div>
+
+                        <strong>
+
+                            ₹ {{ "%.2f"|format(item.price * item.quantity) }}
+
+                        </strong>
+
+                    </div>
+
+                    {% endfor %}
+
+                </div>
+
+                <hr>
+
+                <div class="summary-row">
+
+                    <span>
+
+                        Subtotal
+
+                    </span>
+
+                    <strong>
+
+                        ₹ {{ "%.2f"|format(total) }}
+
+                    </strong>
+
+                </div>
+
+                <div class="summary-row">
+
+                    <span>
+
+                        Delivery
+
+                    </span>
+
+                    <strong>
+
+                        FREE
+
+                    </strong>
+
+                </div>
+
+                <div class="summary-row">
+
+                    <span>
+
+                        GST
+
+                    </span>
+
+                    <strong>
+
+                        Included
+
+                    </strong>
+
+                </div>
+
+                <hr>
+
+                <div class="summary-total">
+
+                    <span>
+
+                        Grand Total
+
+                    </span>
+
+                    <span>
+
+                        ₹ {{ "%.2f"|format(total) }}
+
+                    </span>
+
+                </div>
+
+                <button type="submit"
+                        class="place-order-btn">
+
+                    ✅ Place Order
+
+                </button>
+
+                {% else %}
+
+                <div class="empty-summary">
+
+                    <h3>
+
+                        🛒 Your Cart is Empty
+
+                    </h3>
+
+                    <p>
+
+                        Please add some delicious food before proceeding to checkout.
+
+                    </p>
+
+                    <a href="{{ url_for('menu_page') }}"
+                       class="hero-btn">
+
+                        🍔 Browse Menu
+
+                    </a>
+
+                </div>
+
+                {% endif %}
+
+            </div>
+
+            <div class="checkout-card secure-box">
+
+                <h3>
+
+                    🔒 Secure Checkout
+
+                </h3>
+
+                <p>
+
+                    Your personal information is encrypted and your payment details are protected throughout the checkout process.
+
+                </p>
+
+                <ul>
+
+                    <li>✅ SSL Secure Connection</li>
+
+                    <li>✅ Safe Payment Gateway</li>
+
+                    <li>✅ Fast Home Delivery</li>
+
+                    <li>✅ Fresh Food Guarantee</li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ===================================================== -->
+<!-- NEWSLETTER -->
+<!-- ===================================================== -->
+
+<section class="newsletter">
+
+    <div class="newsletter-content">
+
+        <h2>
+
+            📧 Subscribe to Our Newsletter
+
+        </h2>
+
+        <p>
+
+            Receive exclusive discounts, new menu updates,
+            festival offers and exciting food deals directly
+            to your inbox.
+
+        </p>
+
+        <form class="newsletter-form">
+
+            <input
+                type="email"
+                placeholder="Enter your email address"
+                required>
+
+            <button type="submit">
+
+                Subscribe
+
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+
+<!-- ===================================================== -->
+<!-- FOOTER -->
+<!-- ===================================================== -->
+
+<footer>
+
+    <div class="footer-container">
+
+        <div class="footer-grid">
+
+            <!-- ====================================== -->
+            <!-- ABOUT -->
+            <!-- ====================================== -->
+
+            <div class="footer-column">
+
+                <h3>
+
+                    🍽 Restaurant Ordering System
+
+                </h3>
+
+                <p>
+
+                    Fresh food prepared using premium
+                    ingredients, delivered quickly
+                    with quality, hygiene and great taste.
+
+                </p>
+
+                <div class="social-icons">
+
+                    <a href="#">📘</a>
+
+                    <a href="#">📸</a>
+
+                    <a href="#">▶️</a>
+
+                    <a href="#">💼</a>
+
+                </div>
+
+            </div>
+
+
+            <!-- ====================================== -->
+            <!-- QUICK LINKS -->
+            <!-- ====================================== -->
+
+            <div class="footer-column">
+
+                <h3>
+
+                    Quick Links
+
+                </h3>
+
+                <ul>
+
+                    <li>
+
+                        <a href="{{ url_for('home') }}">
+
+                            🏠 Home
+
+                        </a>
+
+                    </li>
+
+                    <li>
+
+                        <a href="{{ url_for('menu_page') }}">
+
+                            🍔 Menu
+
+                        </a>
+
+                    </li>
+
+                    <li>
+
+                        <a href="{{ url_for('cart_page') }}">
+
+                            🛒 Cart
+
+                        </a>
+
+                    </li>
+
+                    <li>
+
+                        <a href="{{ url_for('checkout') }}">
+
+                            💳 Checkout
+
+                        </a>
+
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+            <!-- ====================================== -->
+            <!-- CONTACT -->
+            <!-- ====================================== -->
+
+            <div class="footer-column">
+
+                <h3>
+
+                    Contact Us
+
+                </h3>
+
+                <ul>
+
+                    <li>
+
+                        📍 Chennai, Tamil Nadu
+
+                    </li>
+
+                    <li>
+
+                        📞 +91 98765 43210
+
+                    </li>
+
+                    <li>
+
+                        ✉ contact@restaurant.com
+
+                    </li>
+
+                    <li>
+
+                        🌐 www.restaurant.com
+
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+            <!-- ====================================== -->
+            <!-- OPENING HOURS -->
+            <!-- ====================================== -->
+
+            <div class="footer-column">
+
+                <h3>
+
+                    Opening Hours
+
+                </h3>
+
+                <ul>
+
+                    <li>
+
+                        Monday - Friday
+
+                        <br>
+
+                        10:00 AM - 10:00 PM
+
+                    </li>
+
+                    <li>
+
+                        Saturday
+
+                        <br>
+
+                        09:00 AM - 11:00 PM
+
+                    </li>
+
+                    <li>
+
+                        Sunday
+
+                        <br>
+
+                        09:00 AM - 11:00 PM
+
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+        <hr>
+
+        <div class="footer-bottom">
+
+            <p>
+
+                © 2026 Restaurant Ordering System.
+                All Rights Reserved.
+
+            </p>
+
+        </div>
+
+    </div>
+
+</footer>
+
+<!-- ===================================================== -->
+<!-- BACK TO TOP -->
+<!-- ===================================================== -->
+
+<button id="backToTop"
+        title="Back to Top">
+
+    ⬆
+
+</button>
+
+
+<!-- ===================================================== -->
+<!-- JAVASCRIPT -->
+<!-- ===================================================== -->
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    /*==========================================
+      Back To Top Button
+    ==========================================*/
+
+    const backToTop = document.getElementById("backToTop");
+
+    window.addEventListener("scroll", function () {
+
+        if (window.scrollY > 300) {
+
+            backToTop.style.display = "block";
+
+        } else {
+
+            backToTop.style.display = "none";
+
+        }
+
+    });
+
+    backToTop.addEventListener("click", function () {
+
+        window.scrollTo({
+
+            top:0,
+
+            behavior:"smooth"
+
+        });
+
+    });
+
+});
+
+</script>
+
+
+<!-- ===================================================== -->
+<!-- BOOTSTRAP JS (Optional)
+===================================================== -->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
+<!-- ===================================================== -->
+<!-- CUSTOM JAVASCRIPT
+===================================================== -->
+
+<script src="{{ url_for('static', filename='js/menu.js') }}"></script>
+
+<script src="{{ url_for('static', filename='js/popup.js') }}"></script>
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+
+</body>
+
+</html>
