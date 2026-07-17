@@ -824,7 +824,13 @@ def internal_server_error(error):
 
     ), 500
 
+# ==========================================
+# Evaluation Page
+# ==========================================
 
+@app.route("/evaluation")
+def evaluation():
+    return render_template("evaluation.html")
 
 # ==========================================================
 # RUN APPLICATION
