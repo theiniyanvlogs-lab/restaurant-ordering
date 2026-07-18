@@ -1,4 +1,3 @@
-import pandas as pd
 from sklearn.metrics import (
     accuracy_score,
     precision_score,
@@ -6,53 +5,34 @@ from sklearn.metrics import (
     f1_score
 )
 
+# Store evaluation history
+y_true = []
+y_pred = []
 
-def evaluate_chatbot(csv_file):
-    """
-    Evaluate chatbot answers from a CSV file.
 
-    Required columns:
-    - Expected
-    - Predicted
-    """
+def evaluate_chatbot(expected, predicted):
 
-    df = pd.read_csv(csv_file)
+    expected = str(expected).strip().lower()
+    predicted = str(predicted).strip().lower()
 
-    y_true = []
-    y_pred = []
+    y_true.append(1)
 
-    correct = 0
-
-    for _, row in df.iterrows():
-
-        expected = str(row["Expected"]).strip().lower()
-        predicted = str(row["Predicted"]).strip().lower()
-
-        y_true.append(1)
-
-        if expected == predicted:
-            y_pred.append(1)
-            correct += 1
-        else:
-            y_pred.append(0)
-
-    total = len(df)
-    incorrect = total - correct
+    if expected == predicted:
+        y_pred.append(1)
+    else:
+        y_pred.append(0)
 
     accuracy = accuracy_score(y_true, y_pred) * 100
     precision = precision_score(y_true, y_pred, zero_division=0) * 100
     recall = recall_score(y_true, y_pred, zero_division=0) * 100
     f1 = f1_score(y_true, y_pred, zero_division=0) * 100
 
-    metrics = {
+    return {
         "accuracy": round(accuracy, 2),
         "precision": round(precision, 2),
         "recall": round(recall, 2),
         "f1_score": round(f1, 2),
-        "total_questions": total,
-        "correct": correct,
-        "incorrect": incorrect,
-        "response_time": "1.2 sec"
+        "total_questions": len(y_true),
+        "correct": sum(y_pred),
+        "incorrect": len(y_true) - sum(y_pred)
     }
-
-    return metrics
