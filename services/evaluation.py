@@ -75,8 +75,10 @@ def evaluate_chatbot(question, chatbot_answer):
     # Find matching question
     for _, row in df.iterrows():
 
-        if str(row["Question"]).strip().lower() == question.strip().lower():
+        csv_question = " ".join(str(row["Question"]).lower().split())
+        user_question = " ".join(question.lower().split())
 
+        if csv_question == user_question:
             expected = str(row["Expected"]).strip()
             break
 
