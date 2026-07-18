@@ -1,5 +1,6 @@
 import os
 import json
+from services.evaluation import evaluate_chatbot
 
 from flask import (
     Flask,
@@ -733,10 +734,14 @@ def ai_chat():
 
         reply = ask_gemini(message)
 
+        # Evaluate chatbot
+            metrics = evaluate_chatbot("evaluation/evaluation_results.csv")
+
         return jsonify({
             "success": True,
             "data": {
-                "reply": reply
+                "reply": reply,
+                "metrics": metrics
             }
         })
 
