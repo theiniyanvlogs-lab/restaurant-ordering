@@ -62,18 +62,25 @@ Answer
 ==================================================
 """
 
+   def ask_gemini(prompt, evaluation=False):
+
+    if not evaluation:
+        prompt = f"""
+        ...
+        """
+
     MODEL_NAME = "models/gemini-3.5-flash"
 
-try:
-    response = client.models.generate_content(
-        model=MODEL_NAME,
-        contents=prompt
-    )
+    try:
+        response = client.models.generate_content(
+            model=MODEL_NAME,
+            contents=prompt
+        )
 
-    if response.text:
-        return response.text.strip()
+        if response.text:
+            return response.text.strip()
 
-    return "Sorry, I couldn't generate a response."
+        return "Sorry, I couldn't generate a response."
 
-except Exception as e:
-    return f"Gemini Error: {e}"
+    except Exception as e:
+        return f"Gemini Error: {e}"
