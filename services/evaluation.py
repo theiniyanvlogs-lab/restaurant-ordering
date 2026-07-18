@@ -127,7 +127,10 @@ Return ONLY valid JSON.
 }}
 """
 
-    response = ask_gemini(evaluation_prompt)
+    response = ask_gemini(
+    evaluation_prompt,
+    evaluation=True
+)
 
     try:
 
