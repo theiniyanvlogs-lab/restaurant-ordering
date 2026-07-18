@@ -305,4 +305,19 @@ Do not explain anything.
     metrics["confidence"] = confidence
     metrics["reason"] = reason
 
+    save_evaluation(
+    question,
+    matched_question,
+    expected,
+    chatbot_answer,
+    is_correct,
+    confidence,
+    metrics,
+    reason
+)
     return metrics
+
+
+
+
+
