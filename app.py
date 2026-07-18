@@ -735,17 +735,16 @@ def ai_chat():
         reply = ask_gemini(message)
 
         # Evaluate chatbot
-            expected_answer = reply
-            metrics = evaluate_chatbot(expected_answer, reply)
+            metrics = evaluate_chatbot(message, reply)
 
         return jsonify({
-            "success": True,
-            "data": {
-                "reply": reply,
-                "metrics": metrics
-            }
-        })
-
+    "success": True,
+    "data": {
+        "reply": reply,
+        "metrics": metrics,
+        "expected": metrics["expected"]
+    }
+})
     except Exception as e:
 
         return jsonify({
