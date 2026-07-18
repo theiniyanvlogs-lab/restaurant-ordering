@@ -29,3 +29,81 @@ When are refunds available?,Refunds are available only for damaged or incorrect 
 Can food be returned after delivery?,"No, food cannot be returned after delivery.","No, food cannot be returned after delivery."
 Can delivery time vary?,"Yes, delivery time may vary during peak hours.","Yes, delivery time may vary during peak hours."
 Should customers verify their address before placing an order?,"Yes, customers should verify their address before placing an order.","Yes, customers should verify their address before placing an order."
+burger list,"Veg Burger, Cheese Burger, Double Cheese Burger"
+burger menu,"Veg Burger, Cheese Burger, Double Cheese Burger"
+show burgers,"Veg Burger, Cheese Burger, Double Cheese Burger"
+list burgers,"Veg Burger, Cheese Burger, Double Cheese Burger"
+available burgers,"Veg Burger, Cheese Burger, Double Cheese Burger"
+burger options,"Veg Burger, Cheese Burger, Double Cheese Burger"
+what burgers do you have?,"Veg Burger, Cheese Burger, Double Cheese Burger"
+show me burgers,"Veg Burger, Cheese Burger, Double Cheese Burger"
+
+pizza list,"Margherita Pizza, Pepperoni Pizza, Veggie Pizza"
+pizza menu,"Margherita Pizza, Pepperoni Pizza, Veggie Pizza"
+show pizzas,"Margherita Pizza, Pepperoni Pizza, Veggie Pizza"
+available pizzas,"Margherita Pizza, Pepperoni Pizza, Veggie Pizza"
+pizza options,"Margherita Pizza, Pepperoni Pizza, Veggie Pizza"
+what pizzas do you have?,"Margherita Pizza, Pepperoni Pizza, Veggie Pizza"
+
+drink list,"Coca-Cola, Pepsi, Sprite, Water"
+drinks menu,"Coca-Cola, Pepsi, Sprite, Water"
+show drinks,"Coca-Cola, Pepsi, Sprite, Water"
+beverage menu,"Coca-Cola, Pepsi, Sprite, Water"
+
+dessert list,"Ice Cream, Brownie, Chocolate Cake"
+dessert menu,"Ice Cream, Brownie, Chocolate Cake"
+show desserts,"Ice Cream, Brownie, Chocolate Cake"
+
+opening hours,"10:00 AM to 10:00 PM"
+restaurant timings,"10:00 AM to 10:00 PM"
+working hours,"10:00 AM to 10:00 PM"
+when are you open?,"10:00 AM to 10:00 PM"
+what time do you open?,"10:00 AM to 10:00 PM"
+closing time,"10:00 AM to 10:00 PM"
+
+delivery time,"30 to 45 minutes"
+average delivery time,"30 to 45 minutes"
+how long is delivery?,"30 to 45 minutes"
+how much time for delivery?,"30 to 45 minutes"
+
+payment methods,"Cash, Credit Card, Debit Card, UPI"
+payment options,"Cash, Credit Card, Debit Card, UPI"
+how can i pay?,"Cash, Credit Card, Debit Card, UPI"
+do you accept upi?,"Cash, Credit Card, Debit Card, UPI"
+
+contact number,"+1-234-567-8901"
+phone number,"+1-234-567-8901"
+restaurant phone,"+1-234-567-8901"
+
+address,"123 Main Street, Food City"
+restaurant address,"123 Main Street, Food City"
+where are you located?,"123 Main Street, Food City"
+
+can i cancel my order?,"Yes, before the order is prepared."
+cancel order,"Yes, before the order is prepared."
+order cancellation,"Yes, before the order is prepared."
+
+do you offer home delivery?,"Yes, home delivery is available."
+home delivery,"Yes, home delivery is available."
+delivery available?,"Yes, home delivery is available."
+
+vegetarian options,"Veg Burger, Veggie Pizza"
+veg food,"Veg Burger, Veggie Pizza"
+vegetarian menu,"Veg Burger, Veggie Pizza"
+
+non vegetarian options,"Chicken Burger, Pepperoni Pizza"
+non veg menu,"Chicken Burger, Pepperoni Pizza"
+
+today offers,"Check the Offers section for current promotions."
+current offers,"Check the Offers section for current promotions."
+discounts,"Check the Offers section for current promotions."
+
+hello,"Hello! Welcome to FoodExpress."
+hi,"Hello! Welcome to FoodExpress."
+good morning,"Hello! Welcome to FoodExpress."
+good evening,"Hello! Welcome to FoodExpress."
+
+thank you,"You're welcome!"
+thanks,"You're welcome!"
+bye,"Thank you for visiting FoodExpress."
+goodbye,"Thank you for visiting FoodExpress."
