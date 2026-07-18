@@ -77,10 +77,35 @@ const formattedReply = data.data.reply
     .replace(/\n/g, "<br>")
     .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
 
+const metrics = data.data.metrics;
+
 chatMessages.innerHTML += `
-    <div class="bot-message">
-        ${formattedReply}
-    </div>
+<div class="bot-message">
+
+${formattedReply}
+
+<hr>
+
+<b>📊 Evaluation Metrics</b><br><br>
+
+<b>Expected Answer:</b><br>
+${data.data.expected}<br><br>
+
+<b>Accuracy:</b> ${metrics.accuracy}%<br>
+
+<b>Precision:</b> ${metrics.precision}%<br>
+
+<b>Recall:</b> ${metrics.recall}%<br>
+
+<b>F1 Score:</b> ${metrics.f1_score}%<br>
+
+<b>Total Questions:</b> ${metrics.total_questions}<br>
+
+<b>Correct:</b> ${metrics.correct}<br>
+
+<b>Incorrect:</b> ${metrics.incorrect}
+
+</div>
 `;
 
 chatMessages.scrollTop = chatMessages.scrollHeight;
