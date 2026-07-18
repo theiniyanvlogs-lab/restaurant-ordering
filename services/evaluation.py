@@ -80,6 +80,48 @@ def calculate_metrics():
         "incorrect": incorrect_answers
     }
 
+def save_evaluation(
+    question,
+    matched_question,
+    expected,
+    chatbot_answer,
+    is_correct,
+    confidence,
+    metrics,
+    reason
+):
+
+    history_file = "evaluation/evaluation_history.csv"
+
+    new_row = {
+        "Timestamp": datetime.now().strftime("%d-%m-%Y %H:%M:%S"),
+        "User Question": question,
+        "Matched Question": matched_question,
+        "Expected Answer": expected,
+        "Chatbot Answer": chatbot_answer,
+        "Correct": is_correct,
+        "Confidence": confidence,
+        "Accuracy": metrics["accuracy"],
+        "Precision": metrics["precision"],
+        "Recall": metrics["recall"],
+        "F1 Score": metrics["f1_score"],
+        "Reason": reason
+    }
+
+    df_new = pd.DataFrame([new_row])
+
+    if os.path.exists(history_file):
+        df_new.to_csv(
+            history_file,
+            mode="a",
+            header=False,
+            index=False
+        )
+    else:
+        df_new.to_csv(
+            history_file,
+            index=False
+        )
 
 # ==========================================================
 # Evaluate Chatbot
