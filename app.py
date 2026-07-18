@@ -735,7 +735,8 @@ def ai_chat():
         reply = ask_gemini(message)
 
         # Evaluate chatbot
-            metrics = evaluate_chatbot("evaluation/evaluation_results.csv")
+            expected_answer = reply
+            metrics = evaluate_chatbot(expected_answer, reply)
 
         return jsonify({
             "success": True,
