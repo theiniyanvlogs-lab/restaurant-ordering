@@ -29,9 +29,11 @@ PDF_KNOWLEDGE = read_all_pdfs()
 # Ask Gemini
 # ==========================================
 
-def ask_gemini(question):
+def ask_gemini(prompt, evaluation=False):
 
-    prompt = f"""
+    if not evaluation:
+
+        prompt = f"""
 You are FoodExpress Restaurant AI Assistant.
 
 Rules:
@@ -40,30 +42,30 @@ Rules:
 2. Use ONLY the Restaurant Knowledge below.
 3. Never create fake menu items.
 4. Never guess prices.
-5. If the answer is unavailable, reply:
-   "Sorry, I couldn't find that information in our restaurant knowledge."
+5. If the answer is unavailable reply:
+"Sorry, I couldn't find that information in our restaurant knowledge."
 
-==========================================================
+==================================================
 Restaurant Knowledge
-==========================================================
+==================================================
 
 {PDF_KNOWLEDGE}
 
-==========================================================
+==================================================
 Customer Question
-==========================================================
+==================================================
 
-{question}
+{prompt}
 
-==========================================================
+==================================================
 Answer
-==========================================================
+==================================================
 """
 
     try:
 
         response = client.models.generate_content(
-            model="models/gemini-3.5-flash",
+            model="models/gemini-2.5-flash",
             contents=prompt
         )
 
