@@ -1,4 +1,5 @@
 import json
+import re
 import pandas as pd
 
 from services.gemini_service import ask_gemini
@@ -12,6 +13,27 @@ correct_answers = 0
 
 
 # ==========================================================
+# Extract JSON safely from Gemini response
+# ==========================================================
+
+def extract_json(text):
+
+    try:
+        return json.loads(text)
+    except Exception:
+        pass
+
+    try:
+        match = re.search(r"\{.*\}", text, re.DOTALL)
+        if match:
+            return json.loads(match.group())
+    except Exception:
+        pass
+
+    return None
+
+
+# ==========================================================
 # Manual Metric Calculation
 # ==========================================================
 
@@ -22,30 +44,29 @@ def calculate_metrics():
 
     incorrect_answers = total_questions - correct_answers
 
-    if total_questions == 0:
-        accuracy = 0
-    else:
-        accuracy = (correct_answers / total_questions) * 100
+    accuracy = (
+        (correct_answers / total_questions) * 100
+        if total_questions > 0 else 0
+    )
 
-    # Binary classification (manual)
     tp = correct_answers
     fp = incorrect_answers
     fn = incorrect_answers
 
-    if (tp + fp) == 0:
-        precision = 0
-    else:
-        precision = (tp / (tp + fp)) * 100
+    precision = (
+        (tp / (tp + fp)) * 100
+        if (tp + fp) > 0 else 0
+    )
 
-    if (tp + fn) == 0:
-        recall = 0
-    else:
-        recall = (tp / (tp + fn)) * 100
+    recall = (
+        (tp / (tp + fn)) * 100
+        if (tp + fn) > 0 else 0
+    )
 
-    if (precision + recall) == 0:
-        f1 = 0
-    else:
-        f1 = (2 * precision * recall) / (precision + recall)
+    f1 = (
+        (2 * precision * recall) / (precision + recall)
+        if (precision + recall) > 0 else 0
+    )
 
     return {
         "accuracy": round(accuracy, 2),
@@ -67,22 +88,82 @@ def evaluate_chatbot(question, chatbot_answer):
     global total_questions
     global correct_answers
 
+    # ------------------------------------------------------
     # Read Evaluation Dataset
+    # ------------------------------------------------------
+
     df = pd.read_csv("evaluation/evaluation_results.csv")
 
-    expected = ""
+    question_bank = ""
 
-    # Find matching question
     for _, row in df.iterrows():
 
-        csv_question = " ".join(str(row["Question"]).lower().split())
-        user_question = " ".join(question.lower().split())
+        question_bank += (
+            f"Question: {row['Question']}\n"
+            f"Expected: {row['Expected']}\n\n"
+        )
 
-        if csv_question == user_question:
-            expected = str(row["Expected"]).strip()
-            break
+    # ------------------------------------------------------
+    # Semantic Question Matching
+    # ------------------------------------------------------
 
-    # If no expected answer found
+    matching_prompt = f"""
+You are an intelligent evaluator.
+
+Below is the evaluation dataset.
+
+{question_bank}
+
+User Question:
+{question}
+
+Find the SINGLE BEST matching question.
+
+Match based on meaning.
+
+Return ONLY JSON.
+
+{{
+    "matched_question":"...",
+    "expected_answer":"..."
+}}
+
+Do not return markdown.
+
+Do not explain anything.
+"""
+
+    matching_response = ask_gemini(
+        matching_prompt,
+        evaluation=True
+    )
+
+    expected = ""
+    matched_question = ""
+
+    try:
+
+        result = extract_json(matching_response)
+
+        if result:
+
+            matched_question = result.get(
+                "matched_question",
+                ""
+            )
+
+            expected = result.get(
+                "expected_answer",
+                ""
+            )
+
+    except Exception:
+        pass
+
+    # ------------------------------------------------------
+    # Question not found
+    # ------------------------------------------------------
+
     if expected == "":
 
         total_questions += 1
@@ -91,13 +172,13 @@ def evaluate_chatbot(question, chatbot_answer):
 
         metrics["expected"] = "Question not found in evaluation dataset."
         metrics["confidence"] = 0
-        metrics["reason"] = "No matching question found."
+        metrics["reason"] = "No semantic match found."
 
         return metrics
 
-    # ======================================================
-    # Gemini Semantic Evaluation
-    # ======================================================
+    # ------------------------------------------------------
+    # Semantic Answer Evaluation
+    # ------------------------------------------------------
 
     evaluation_prompt = f"""
 You are an AI evaluator.
@@ -105,50 +186,68 @@ You are an AI evaluator.
 Question:
 {question}
 
+Matched Question:
+{matched_question}
+
 Expected Answer:
 {expected}
 
 Chatbot Answer:
 {chatbot_answer}
 
-Compare the chatbot answer with the expected answer.
-
-Judge semantic meaning.
+Compare both answers.
 
 Ignore wording differences.
 
-If both answers mean the same thing,
-return correct=true.
+Judge only semantic meaning.
 
-Return ONLY valid JSON.
+Return ONLY JSON.
 
 {{
     "correct": true,
     "confidence": 95,
     "reason": "Short explanation"
 }}
+
+Do not return markdown.
+
+Do not explain anything.
 """
 
-    response = ask_gemini(
-    evaluation_prompt,
-    evaluation=True
-)
+    evaluation_response = ask_gemini(
+        evaluation_prompt,
+        evaluation=True
+    )
+
+    is_correct = False
+    confidence = 0
+    reason = "Unable to evaluate."
 
     try:
 
-        result = json.loads(response)
+        result = extract_json(evaluation_response)
 
-        is_correct = bool(result.get("correct", False))
-        confidence = float(result.get("confidence", 0))
-        reason = result.get("reason", "")
+        if result:
+
+            is_correct = bool(
+                result.get("correct", False)
+            )
+
+            confidence = float(
+                result.get("confidence", 0)
+            )
+
+            reason = result.get(
+                "reason",
+                ""
+            )
 
     except Exception:
+        pass
 
-        is_correct = False
-        confidence = 0
-        reason = "Unable to evaluate."
-
+    # ------------------------------------------------------
     # Update Statistics
+    # ------------------------------------------------------
 
     total_questions += 1
 
@@ -158,6 +257,7 @@ Return ONLY valid JSON.
     metrics = calculate_metrics()
 
     metrics["expected"] = expected
+    metrics["matched_question"] = matched_question
     metrics["confidence"] = confidence
     metrics["reason"] = reason
 
