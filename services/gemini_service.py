@@ -62,15 +62,18 @@ Answer
 ==================================================
 """
 
-    try:
+    MODEL_NAME = "models/gemini-3.5-flash"
 
-        response = client.models.generate_content(
-            MODEL_NAME = "models/gemini-3.1-pro-preview",
-            contents=prompt
-        )
+try:
+    response = client.models.generate_content(
+        model=MODEL_NAME,
+        contents=prompt
+    )
 
+    if response.text:
         return response.text.strip()
 
-    except Exception as e:
+    return "Sorry, I couldn't generate a response."
 
-        return f"Gemini Error: {e}"
+except Exception as e:
+    return f"Gemini Error: {e}"
