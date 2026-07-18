@@ -131,7 +131,11 @@ def home():
     )
 
 
-    @app.route("/evaluation-dashboard")
+# ==========================================================
+# EVALUATION DASHBOARD
+# ==========================================================
+
+@app.route("/evaluation-dashboard")
 def evaluation_dashboard():
 
     import pandas as pd
