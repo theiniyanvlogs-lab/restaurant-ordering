@@ -1,59 +1,159 @@
+import json
 import pandas as pd
-from sklearn.metrics import (
-    accuracy_score,
-    precision_score,
-    recall_score,
-    f1_score
-)
 
-y_true = []
-y_pred = []
+from services.gemini_service import ask_gemini
 
+# ==========================================================
+# Global Statistics
+# ==========================================================
+
+total_questions = 0
+correct_answers = 0
+
+
+# ==========================================================
+# Manual Metric Calculation
+# ==========================================================
+
+def calculate_metrics():
+
+    global total_questions
+    global correct_answers
+
+    incorrect_answers = total_questions - correct_answers
+
+    if total_questions == 0:
+        accuracy = 0
+    else:
+        accuracy = (correct_answers / total_questions) * 100
+
+    # Binary classification (manual)
+    tp = correct_answers
+    fp = incorrect_answers
+    fn = incorrect_answers
+
+    if (tp + fp) == 0:
+        precision = 0
+    else:
+        precision = (tp / (tp + fp)) * 100
+
+    if (tp + fn) == 0:
+        recall = 0
+    else:
+        recall = (tp / (tp + fn)) * 100
+
+    if (precision + recall) == 0:
+        f1 = 0
+    else:
+        f1 = (2 * precision * recall) / (precision + recall)
+
+    return {
+        "accuracy": round(accuracy, 2),
+        "precision": round(precision, 2),
+        "recall": round(recall, 2),
+        "f1_score": round(f1, 2),
+        "total_questions": total_questions,
+        "correct": correct_answers,
+        "incorrect": incorrect_answers
+    }
+
+
+# ==========================================================
+# Evaluate Chatbot
+# ==========================================================
 
 def evaluate_chatbot(question, chatbot_answer):
 
+    global total_questions
+    global correct_answers
+
+    # Read Evaluation Dataset
     df = pd.read_csv("evaluation/evaluation_results.csv")
 
-    expected = None
+    expected = ""
 
+    # Find matching question
     for _, row in df.iterrows():
 
         if str(row["Question"]).strip().lower() == question.strip().lower():
 
             expected = str(row["Expected"]).strip()
-
             break
 
-    if expected is None:
+    # If no expected answer found
+    if expected == "":
 
-        expected = ""
+        total_questions += 1
 
-    y_true.append(1)
+        metrics = calculate_metrics()
 
-    if expected.lower() == chatbot_answer.strip().lower():
+        metrics["expected"] = "Question not found in evaluation dataset."
+        metrics["confidence"] = 0
+        metrics["reason"] = "No matching question found."
 
-        y_pred.append(1)
+        return metrics
 
-    else:
+    # ======================================================
+    # Gemini Semantic Evaluation
+    # ======================================================
 
-        y_pred.append(0)
+    evaluation_prompt = f"""
+You are an AI evaluator.
 
-    return {
+Question:
+{question}
 
-        "expected": expected,
+Expected Answer:
+{expected}
 
-        "accuracy": round(accuracy_score(y_true, y_pred) * 100, 2),
+Chatbot Answer:
+{chatbot_answer}
 
-        "precision": round(precision_score(y_true, y_pred, zero_division=0) * 100, 2),
+Compare the chatbot answer with the expected answer.
 
-        "recall": round(recall_score(y_true, y_pred, zero_division=0) * 100, 2),
+Judge semantic meaning.
 
-        "f1_score": round(f1_score(y_true, y_pred, zero_division=0) * 100, 2),
+Ignore wording differences.
 
-        "correct": sum(y_pred),
+If both answers mean the same thing,
+return correct=true.
 
-        "incorrect": len(y_true) - sum(y_pred),
+Return ONLY valid JSON.
 
-        "total_questions": len(y_true)
+{{
+    "correct": true,
+    "confidence": 95,
+    "reason": "Short explanation"
+}}
+"""
 
-    }
+    response = ask_gemini(evaluation_prompt)
+
+    try:
+
+        result = json.loads(response)
+
+        is_correct = bool(result.get("correct", False))
+        confidence = float(result.get("confidence", 0))
+        reason = result.get("reason", "")
+
+    except Exception:
+
+        is_correct = False
+        confidence = 0
+        reason = "Unable to evaluate."
+
+    # Update Statistics
+
+    total_questions += 1
+
+    if is_correct:
+        correct_answers += 1
+
+    metrics = calculate_metrics()
+
+    metrics["expected"] = expected
+    metrics["confidence"] = confidence
+    metrics["reason"] = reason
+
+    return metrics
