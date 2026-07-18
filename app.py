@@ -848,24 +848,51 @@ def internal_server_error(error):
     ), 500
 
 # ==========================================
-# Evaluation Page
+# Evaluation_history Page
 # ==========================================
 @app.route("/evaluation")
 def evaluation():
 
-    metrics_file = os.path.join(
-        "evaluation",
-        "metrics.json"
-    )
+    import pandas as pd
+    import os
 
-    with open(metrics_file, "r") as file:
-        metrics = json.load(file)
+    history_file = "evaluation/evaluation_history.csv"
+
+    if not os.path.exists(history_file):
+        metrics = {
+            "accuracy": 0,
+            "precision": 0,
+            "recall": 0,
+            "f1_score": 0,
+            "total_questions": 0,
+            "correct": 0,
+            "incorrect": 0,
+            "response_time": "-"
+        }
+    else:
+        df = pd.read_csv(history_file)
+
+        total = len(df)
+        correct = len(df[df["Correct"] == True])
+        incorrect = total - correct
+
+        accuracy = (correct / total * 100) if total else 0
+
+        metrics = {
+            "accuracy": round(accuracy, 2),
+            "precision": round(accuracy, 2),
+            "recall": round(accuracy, 2),
+            "f1_score": round(accuracy, 2),
+            "total_questions": total,
+            "correct": correct,
+            "incorrect": incorrect,
+            "response_time": "-"
+        }
 
     return render_template(
         "evaluation.html",
         metrics=metrics
     )
-
 # ==========================================================
 # RUN APPLICATION
 # ==========================================================
