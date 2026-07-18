@@ -62,16 +62,10 @@ Answer
 ==================================================
 """
 
-   def ask_gemini(prompt, evaluation=False):
-
-    if not evaluation:
-        prompt = f"""
-        ...
-        """
-
     MODEL_NAME = "models/gemini-3.5-flash"
 
     try:
+
         response = client.models.generate_content(
             model=MODEL_NAME,
             contents=prompt
