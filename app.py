@@ -131,6 +131,20 @@ def home():
     )
 
 
+    @app.route("/evaluation-dashboard")
+def evaluation_dashboard():
+
+    import pandas as pd
+
+    history = pd.read_csv("evaluation/evaluation_history.csv")
+
+    records = history.to_dict(orient="records")
+
+    return render_template(
+        "evaluation_dashboard.html",
+        records=records
+    )
+
 # ==========================================================
 # MENU PAGE
 # ==========================================================
