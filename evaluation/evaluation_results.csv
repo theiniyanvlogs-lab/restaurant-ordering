@@ -1,51 +1,31 @@
 Question,Expected,Predicted
 What is FoodExpress?,FoodExpress is an AI-powered online restaurant ordering platform.,FoodExpress is an AI-powered online restaurant ordering platform.
 What type of platform is FoodExpress?,AI-powered online restaurant ordering platform.,AI-powered online restaurant ordering platform.
+What foods are available at FoodExpress?,"Pizza, Burgers, Pasta, Sandwiches, Desserts, and Drinks.","Pizza, Burgers, Pasta, Sandwiches, Desserts, and Drinks."
 What is the mission of FoodExpress?,"To deliver fresh, delicious, and affordable food quickly while providing excellent customer service.","To deliver fresh, delicious, and affordable food quickly while providing excellent customer service."
-What are your business hours?,10:00 AM – 11:00 PM,10:00 AM – 11:00 PM
-What is the support email?,support@foodexpress.com,support@foodexpress.com
-What is the website?,www.foodexpress.com,www.foodexpress.com
-Do you serve pizza?,Yes,Yes
-Do you serve burgers?,Yes,Yes
-Do you serve pasta?,Yes,Yes
-Do you serve desserts?,Yes,Yes
-Do you serve drinks?,Yes,Yes
-What is the price of Margherita Pizza?,$12.99,$12.99
-What is the price of Veg Supreme Pizza?,$15.99,$15.99
-What is the price of Paneer Pizza?,$16.99,$16.99
-What is the price of Farmhouse Pizza?,$17.99,$17.99
-What is the price of Veg Burger?,$7.99,$7.99
-What is the price of Cheese Burger?,$8.99,$8.99
-What is the price of Double Cheese Burger?,$10.99,$10.99
-What is the price of White Sauce Pasta?,$11.99,$11.99
-What is the price of Red Sauce Pasta?,$10.99,$10.99
-What is the price of Mixed Pasta?,$12.99,$12.99
-What is the price of Veg Sandwich?,$6.99,$6.99
-What is the price of Grilled Sandwich?,$7.99,$7.99
-What is the price of Chocolate Brownie?,$5.99,$5.99
-What is the price of Ice Cream Sundae?,$4.99,$4.99
-What is the price of Coca-Cola?,$2.99,$2.99
-What is the price of Pepsi?,$2.99,$2.99
-What is the price of Orange Juice?,$3.99,$3.99
-What is the price of Mineral Water?,$1.99,$1.99
-What is the average delivery time?,30–40 Minutes,30–40 Minutes
-What discount is available on orders above $50?,20% OFF,20% OFF
-What burger offer is available?,Buy 2 Burgers Get 1 Burger FREE,Buy 2 Burgers Get 1 Burger FREE
-When do I get a free soft drink?,On orders above $30,On orders above $30
-What is the weekend special offer?,Flat 15% OFF,Flat 15% OFF
-When is free delivery available?,On orders above $40,On orders above $40
+What are the business hours of FoodExpress?,10:00 AM – 11:00 PM.,10:00 AM – 11:00 PM.
+What is the support email of FoodExpress?,support@foodexpress.com,support@foodexpress.com
+What is the official website of FoodExpress?,www.foodexpress.com,www.foodexpress.com
+Does FoodExpress serve pizza?,"Yes, FoodExpress serves pizza.","Yes, FoodExpress serves pizza."
+Does FoodExpress serve burgers?,"Yes, FoodExpress serves burgers.","Yes, FoodExpress serves burgers."
+Does FoodExpress serve pasta?,"Yes, FoodExpress serves pasta.","Yes, FoodExpress serves pasta."
+Does FoodExpress serve sandwiches?,"Yes, FoodExpress serves sandwiches.","Yes, FoodExpress serves sandwiches."
+Does FoodExpress serve desserts?,"Yes, FoodExpress serves desserts.","Yes, FoodExpress serves desserts."
+Does FoodExpress serve drinks?,"Yes, FoodExpress serves drinks.","Yes, FoodExpress serves drinks."
+What pizzas are available at FoodExpress?,"Margherita Pizza, Veg Supreme Pizza, Paneer Pizza, and Farmhouse Pizza.","Margherita Pizza, Veg Supreme Pizza, Paneer Pizza, and Farmhouse Pizza."
+What burger options are available at FoodExpress?,"Veg Burger, Cheese Burger, and Double Cheese Burger.","Veg Burger, Cheese Burger, and Double Cheese Burger."
+What pasta varieties are available?,"White Sauce Pasta, Red Sauce Pasta, and Mixed Pasta.","White Sauce Pasta, Red Sauce Pasta, and Mixed Pasta."
+What sandwiches are available?,Veg Sandwich and Grilled Sandwich.,Veg Sandwich and Grilled Sandwich.
+What desserts are available?,Chocolate Brownie and Ice Cream Sundae.,Chocolate Brownie and Ice Cream Sundae.
+What drinks are available?,"Coca-Cola, Pepsi, Orange Juice, and Mineral Water.","Coca-Cola, Pepsi, Orange Juice, and Mineral Water."
+What is the average delivery time?,30–40 Minutes.,30–40 Minutes.
+What discount is available on orders above $50?,20% OFF on orders above $50.,20% OFF on orders above $50.
+What burger offer is currently available?,Buy 2 Burgers Get 1 Burger FREE.,Buy 2 Burgers Get 1 Burger FREE.
+When do customers get a free soft drink?,On orders above $30.,On orders above $30.
+What is the weekend special offer?,Flat 15% OFF.,Flat 15% OFF.
+When is free delivery available?,On orders above $40.,On orders above $40.
 Can I cancel my order?,"Yes, within 5 minutes.","Yes, within 5 minutes."
-When are refunds available?,Only for damaged or incorrect orders.,Only for damaged or incorrect orders.
-Can food be returned after delivery?,No,No
-Can delivery time vary?,"Yes, during peak hours.","Yes, during peak hours."
-Should customers verify their address before placing an order?,Yes,Yes
-Do you provide home delivery?,Yes,Yes
-What payment methods are accepted?,"Credit Card, Debit Card, PayPal, Cash on Delivery.","Credit Card, Debit Card, PayPal, Cash on Delivery."
-Can I track my order?,Yes,Yes
-What are your business hours?,10:00 AM – 11:00 PM,10:00 AM – 11:00 PM
-How long does delivery usually take?,30–40 minutes.,30–40 minutes.
-Does FoodExpress offer affordable food?,Yes,Yes
-Does FoodExpress provide excellent customer service?,Yes,Yes
-Can I order desserts online?,Yes,Yes
-Can I order drinks online?,Yes,Yes
-What is FoodExpress known for?,"Fresh, delicious, and affordable food with fast online ordering.","Fresh, delicious, and affordable food with fast online ordering."
+When are refunds available?,Refunds are available only for damaged or incorrect orders.,Refunds are available only for damaged or incorrect orders.
+Can food be returned after delivery?,"No, food cannot be returned after delivery.","No, food cannot be returned after delivery."
+Can delivery time vary?,"Yes, delivery time may vary during peak hours.","Yes, delivery time may vary during peak hours."
+Should customers verify their address before placing an order?,"Yes, customers should verify their address before placing an order.","Yes, customers should verify their address before placing an order."
